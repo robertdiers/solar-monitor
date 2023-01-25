@@ -18,11 +18,11 @@
 ## additional Python modules
 * BYD.py - read actual values from BYD battery (TCP Socket)
 * Config.py - read config file and check for environment parameter overrides
-* Daly.py - subscribes to MQTT topic to read JSON with data
+* Daly.py - subscribes to MQTT topic to read data
 * IdmPump.py - read actual solar power from iDM heat pump (TCP Modbus)
 * Kostal.py - read actual values from Kostal inverter (TCP Modbus)
-* Tasmota.py - turn Tasmota device on/off and read status (MQTT)
-* TimescaleDb.py - read and write TimescaleDB
+* Tasmota.py - read Tasmota data (MQTT)
+* TimescaleDb.py - write to TimescaleDB
 
 Hint: data input for iDM is realized with dedicated container: https://github.com/robertdiers/kostal_idmpump
 
