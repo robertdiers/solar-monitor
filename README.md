@@ -28,10 +28,10 @@ Hint: data input for iDM is realized with dedicated container: https://github.co
 
 ## Docker
 ```
-docker run -d --restart always --name solarmonitor ghcr.io/robertdiers/solarmonitor:1.0
+docker run -d --restart always --name solarmonitor -e MQTT_PASSWORD=password ghcr.io/robertdiers/solar-monitor:1.0
 ```
 
-### TimescaleDB
+### TimescaleDB (please define your own password)
 Using /dev/shm to store data in memory, sd card doesn't have to store it:
 
 ```
@@ -45,7 +45,7 @@ Dashboard JSON is placed in this repo:
 docker run -d --name grafana --volume "$PWD/grafanadata:/var/lib/grafana" -p 3000:3000 --restart always grafana/grafana:latest
 ```
 
-### EMQX (MQTT broker)
+### EMQX (MQTT broker, please define your own password)
 ```
 docker run -d --name emqx -p 18083:18083 -p 1883:1883 -v $PWD/emqxdata:/opt/emqx/data --restart always emqx:latest
 ```

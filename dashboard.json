@@ -31,7 +31,7 @@
     {
       "datasource": {
         "type": "postgres",
-        "uid": "WsNRUSzVz"
+        "uid": "emIymM7Vz"
       },
       "fieldConfig": {
         "defaults": {
@@ -111,13 +111,14 @@
         {
           "datasource": {
             "type": "postgres",
-            "uid": "WsNRUSzVz"
+            "uid": "emIymM7Vz"
           },
+          "editorMode": "code",
           "format": "time_series",
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  value,\n  key\nFROM metrics\nWHERE\n  $__timeFilter(\"time\") AND\n  key in ('solar_idm_feedin','solar_kostal_consumption_total','solar_kostal_generation_total','solar_kostal_inverter','solar_kostal_powertogrid','solar_kostal_surplus','solar_soyosource','solar_battery_charger_power','solar_byd_power','Daly1_Pack_Current','Daly2_Pack_Current','Daly3_Pack_Current')\nORDER BY 1",
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  value,\n  key\nFROM watts\nWHERE\n  $__timeFilter(\"time\") \nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -137,6 +138,23 @@
               }
             ]
           ],
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          },
           "table": "metrics",
           "timeColumn": "\"time\"",
           "timeColumnType": "timestamptz",
@@ -164,7 +182,7 @@
     {
       "datasource": {
         "type": "postgres",
-        "uid": "WsNRUSzVz"
+        "uid": "emIymM7Vz"
       },
       "fieldConfig": {
         "defaults": {
@@ -241,14 +259,15 @@
         {
           "datasource": {
             "type": "postgres",
-            "uid": "WsNRUSzVz"
+            "uid": "emIymM7Vz"
           },
+          "editorMode": "code",
           "format": "time_series",
           "group": [],
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  value,\n  key\nFROM metrics\nWHERE\n  $__timeFilter(\"time\") AND\n  key in ('solar_byd_soc','solar_byd_soh','solar_byd_error','solar_kostal_batterypercent','solar_kostal_batteryflag','solar_battery_chargestatus','Daly1_Pack_SOC','Daly2_Pack_SOC','Daly3_Pack_SOC')\nORDER BY 1",
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  value,\n  key\nFROM voltages\nWHERE\n  $__timeFilter(\"time\") \n    and key not like '%CellV%'\nORDER BY 1",
           "refId": "G",
           "select": [
             [
@@ -260,6 +279,23 @@
               }
             ]
           ],
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          },
           "table": "solar_kostal_batterypercent",
           "timeColumn": "\"time\"",
           "timeColumnType": "timestamptz",
@@ -272,13 +308,13 @@
           ]
         }
       ],
-      "title": "Batterie und Ladegeraet",
+      "title": "Voltages",
       "type": "timeseries"
     },
     {
       "datasource": {
         "type": "postgres",
-        "uid": "WsNRUSzVz"
+        "uid": "emIymM7Vz"
       },
       "fieldConfig": {
         "defaults": {
@@ -355,14 +391,15 @@
         {
           "datasource": {
             "type": "postgres",
-            "uid": "WsNRUSzVz"
+            "uid": "emIymM7Vz"
           },
+          "editorMode": "code",
           "format": "time_series",
           "group": [],
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  value,\n  key\nFROM metrics\nWHERE\n  $__timeFilter(\"time\") AND\n  key in ('solar_byd_mintemp','solar_byd_maxtemp','solar_byd_battemp','technical_room_temperature','Daly1_Pack_Cell_Temp','Daly1_Pack_BMS_Temp','Daly2_Pack_Cell_Temp','Daly2_Pack_BMS_Temp','Daly3_Pack_Cell_Temp','Daly3_Pack_BMS_Temp')\nORDER BY 1",
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  value,\n  key\nFROM temps\nWHERE\n  $__timeFilter(\"time\")\nORDER BY 1",
           "refId": "G",
           "select": [
             [
@@ -374,6 +411,23 @@
               }
             ]
           ],
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          },
           "table": "solar_battery_chargestatus",
           "timeColumn": "\"time\"",
           "timeColumnType": "timestamp",
@@ -392,7 +446,7 @@
     {
       "datasource": {
         "type": "postgres",
-        "uid": "WsNRUSzVz"
+        "uid": "emIymM7Vz"
       },
       "fieldConfig": {
         "defaults": {
@@ -469,14 +523,15 @@
         {
           "datasource": {
             "type": "postgres",
-            "uid": "WsNRUSzVz"
+            "uid": "emIymM7Vz"
           },
+          "editorMode": "code",
           "format": "time_series",
           "group": [],
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  value,\n  key\nFROM metrics\nWHERE\n  $__timeFilter(\"time\") AND\n  key in ('solar_kostal_dailyyield','solar_battery_charger_today','Daly1_Pack_Cycles','Daly2_Pack_Cycles','Daly3_Pack_Cycles')\nORDER BY 1",
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  value,\n  key\nFROM percentages\nWHERE\n  $__timeFilter(\"time\") \nORDER BY 1",
           "refId": "G",
           "select": [
             [
@@ -488,6 +543,23 @@
               }
             ]
           ],
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          },
           "table": "solar_battery_chargestatus",
           "timeColumn": "\"time\"",
           "timeColumnType": "timestamp",
@@ -500,13 +572,13 @@
           ]
         }
       ],
-      "title": "kWh and cycles",
+      "title": "Prozent",
       "type": "timeseries"
     },
     {
       "datasource": {
         "type": "postgres",
-        "uid": "WsNRUSzVz"
+        "uid": "emIymM7Vz"
       },
       "fieldConfig": {
         "defaults": {
@@ -583,13 +655,14 @@
         {
           "datasource": {
             "type": "postgres",
-            "uid": "WsNRUSzVz"
+            "uid": "emIymM7Vz"
           },
+          "editorMode": "code",
           "format": "time_series",
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  value,\n  key\nFROM metrics\nWHERE\n  $__timeFilter(\"time\") AND\n  key in ('Daly1_Pack_Voltage','Daly2_Pack_Voltage','Daly3_Pack_Voltage')\nORDER BY 1",
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  value,\n  key\nFROM kilowatthours\nWHERE\n  $__timeFilter(\"time\") \nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -601,6 +674,23 @@
               }
             ]
           ],
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          },
           "table": "solar_battery_chargestatus",
           "timeColumn": "\"time\"",
           "timeColumnType": "timestamp",
@@ -613,13 +703,13 @@
           ]
         }
       ],
-      "title": "Spannungen Blöcke",
+      "title": "kWh / Cycles",
       "type": "timeseries"
     },
     {
       "datasource": {
         "type": "postgres",
-        "uid": "WsNRUSzVz"
+        "uid": "emIymM7Vz"
       },
       "fieldConfig": {
         "defaults": {
@@ -678,233 +768,6 @@
         "w": 12,
         "x": 0,
         "y": 30
-      },
-      "id": 6,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "right",
-          "showLegend": true
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "postgres",
-            "uid": "WsNRUSzVz"
-          },
-          "format": "time_series",
-          "group": [],
-          "hide": false,
-          "metricColumn": "none",
-          "rawQuery": true,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  value,\n  key\nFROM metrics\nWHERE\n  $__timeFilter(\"time\") AND\n  key in ('solar_byd_minvolt','solar_byd_maxvolt','Daly1_Pack_High_CellV','Daly1_Pack_Low_CellV','Daly2_Pack_High_CellV','Daly2_Pack_Low_CellV','Daly3_Pack_High_CellV','Daly3_Pack_Low_CellV')\nORDER BY 1",
-          "refId": "D",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "column"
-              }
-            ]
-          ],
-          "table": "solar_kostal_batterypercent",
-          "timeColumn": "\"time\"",
-          "timeColumnType": "timestamptz",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
-        }
-      ],
-      "title": "Spannungen Zellen",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "postgres",
-        "uid": "WsNRUSzVz"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 2,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": true,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 30
-      },
-      "id": 7,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "right",
-          "showLegend": true
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "postgres",
-            "uid": "WsNRUSzVz"
-          },
-          "format": "time_series",
-          "group": [],
-          "metricColumn": "none",
-          "rawQuery": true,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  value,\n  key\nFROM metrics\nWHERE\n  $__timeFilter(\"time\") AND\n  key in ('solar_byd_diffvolt','Daly1_Pack_Cell_Diff','Daly2_Pack_Cell_Diff','Daly3_Pack_Cell_Diff')\nORDER BY 1",
-          "refId": "A",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "column"
-              }
-            ]
-          ],
-          "table": "solar_battery_chargestatus",
-          "timeColumn": "\"time\"",
-          "timeColumnType": "timestamp",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
-        }
-      ],
-      "title": "Differenzspannungen",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "postgres",
-        "uid": "WsNRUSzVz"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 2,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": true,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 38
       },
       "id": 10,
       "options": {
@@ -923,7 +786,7 @@
         {
           "datasource": {
             "type": "postgres",
-            "uid": "WsNRUSzVz"
+            "uid": "emIymM7Vz"
           },
           "format": "time_series",
           "group": [],
@@ -960,7 +823,7 @@
     {
       "datasource": {
         "type": "postgres",
-        "uid": "WsNRUSzVz"
+        "uid": "emIymM7Vz"
       },
       "fieldConfig": {
         "defaults": {
@@ -1018,7 +881,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 38
+        "y": 30
       },
       "id": 11,
       "options": {
@@ -1037,7 +900,7 @@
         {
           "datasource": {
             "type": "postgres",
-            "uid": "WsNRUSzVz"
+            "uid": "emIymM7Vz"
           },
           "format": "time_series",
           "group": [],
@@ -1074,7 +937,7 @@
     {
       "datasource": {
         "type": "postgres",
-        "uid": "WsNRUSzVz"
+        "uid": "emIymM7Vz"
       },
       "fieldConfig": {
         "defaults": {
@@ -1132,7 +995,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 46
+        "y": 38
       },
       "id": 12,
       "options": {
@@ -1151,7 +1014,7 @@
         {
           "datasource": {
             "type": "postgres",
-            "uid": "WsNRUSzVz"
+            "uid": "emIymM7Vz"
           },
           "format": "time_series",
           "group": [],
@@ -1201,6 +1064,6 @@
   "timezone": "",
   "title": "Robert",
   "uid": "EFixgMmRz",
-  "version": 21,
+  "version": 5,
   "weekStart": ""
 }
