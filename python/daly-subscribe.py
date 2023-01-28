@@ -8,10 +8,14 @@ import Config
 import Daly
 import TimescaleDb
 
+#{"Pack":{"Device_Name":"DALY1","Device_IP":"192.168.1.29","Voltage":51.5,"Current":5.6,"Power":288.4,"SOC":48.5,"Remaining_mAh":43650,"Cycles":79,
+#"BMS_Temp":13,"Cell_Temp":13,"High_CellNr":15,"High_CellV":3.249,"Low_CellNr":9,"Low_CellV":3.189,"Cell_Diff":60,"DischargeFET":true,"ChargeFET":true,"Status":"Charge","Cells":16,"Heartbeat":85,"Balance_Active":false,"Relais_Active":false,"Relais_Manual":false},
+#"CellV":{"CellV 1":3.244,"Balance 1":false,"CellV 2":3.227,"Balance 2":false,"CellV 3":3.232,"Balance 3":false,"CellV 4":3.199,"Balance 4":false,"CellV 5":3.204,"Balance 5":false,"CellV 6":3.191,"Balance 6":false,"CellV 7":3.229,"Balance 7":false,"CellV 8":3.209,"Balance 8":false,"CellV 9":3.188,"Balance 9":false,"CellV 10":3.189,"Balance 10":false,"CellV 11":3.21,"Balance 11":false,"CellV 12":3.207,"Balance 12":false,"CellV 13":3.249,"Balance 13":false,"CellV 14":3.249,"Balance 14":false,"CellV 15":3.249,"Balance 15":false,"CellV 16":3.239,"Balance 16":false},"CellTemp":{"Cell_Temp1":13}}
+
 #define interesting attributes        
-attributes = ["Pack_Voltage", "Pack_Current", "Pack_SOC", "Pack_Cycles", "Pack_High_CellV", "Pack_Low_CellV", "Pack_Cell_Diff", "Pack_Cell_Temp", "Pack_BMS_Temp"]
+attributes = ["Pack_Voltage", "Pack_Power", "Pack_SOC", "Pack_Cycles", "Pack_High_CellV", "Pack_Low_CellV", "Pack_Cell_Diff", "Pack_Cell_Temp", "Pack_BMS_Temp"]
 #max 48 blocks
-for x in range(48):
+for x in range(16):
     attributes.append("CellV_CellV "+str(x))
 
 def writedb(name, json):
@@ -31,9 +35,6 @@ def writedb(name, json):
                     #print (value)
                 if attribute in 'Pack_SOC':
                     value = value / 100.0
-                    #print (value)
-                if attribute in 'Pack_Current':
-                    value = value * float(json['Pack_Voltage'])
                     #print (value)
                 if attribute.startswith('CellV_CellV'):
                     TimescaleDb.writeV(name+'_'+attribute, value)
