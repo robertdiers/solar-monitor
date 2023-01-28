@@ -18,7 +18,7 @@ def writeV(key, value):
 def writeT(key, value):
     write('temps',key,value)
 
-# write voltages to TimescaleDB
+# write percentages to TimescaleDB
 def writeP(key, value):
     write('percentages',key,value)
 

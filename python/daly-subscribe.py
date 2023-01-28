@@ -33,13 +33,27 @@ def writedb(name, json):
                 if attribute in 'Pack_Cell_Diff':
                     value = value / 1000.0
                     #print (value)
+                    TimescaleDb.writeV(name+'_'+attribute, value)
                 if attribute in 'Pack_SOC':
                     value = value / 100.0
                     #print (value)
+                    TimescaleDb.writeP(name+'_'+attribute, value)
+                if attribute in 'Pack_Voltage':
+                    TimescaleDb.writeV(name+'_'+attribute, value)
+                if attribute in 'Pack_Power':
+                    TimescaleDb.writeW(name+'_'+attribute, value)
+                if attribute in 'Pack_Cycles':
+                    TimescaleDb.writeK(name+'_'+attribute, value)
+                if attribute in 'Pack_High_CellV':
+                    TimescaleDb.writeV(name+'_'+attribute, value)
+                if attribute in 'Pack_Low_CellV':
+                    TimescaleDb.writeV(name+'_'+attribute, value)
+                if attribute in 'Pack_Cell_Temp':
+                    TimescaleDb.writeT(name+'_'+attribute, value)
+                if attribute in 'Pack_BMS_Temp':
+                    TimescaleDb.writeT(name+'_'+attribute, value)
                 if attribute.startswith('CellV_CellV'):
                     TimescaleDb.writeV(name+'_'+attribute, value)
-                else:
-                    TimescaleDb.write(name+'_'+attribute, value)
 
 if __name__ == "__main__":  
     daly1 = ''
