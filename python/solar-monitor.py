@@ -78,7 +78,7 @@ if __name__ == "__main__":
         idm(conf["idm_ip"], conf["idm_port"])
         kostal(conf["inverter_ip"], conf["inverter_port"])
 
-        print ("OK") 
+        print (datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " OK")  
 
         #print (datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " END #####")
         
