@@ -28,16 +28,20 @@ def writeK(key, value):
 
 # write data to TimescaleDB
 def write(table, key, value):
-    global conn  
-    # create a cursor      
-    cur = conn.cursor()   
-    # execute a statement
-    sql = 'insert into '+table+' (time, key, value) values (now(), %s, %s)'
-    cur.execute(sql, (key,value,))   
-    # commit the changes to the database
-    conn.commit()
-    # close the communication with the PostgreSQL
-    cur.close()
+    try:
+        global conn  
+        # create a cursor      
+        cur = conn.cursor()   
+        # execute a statement
+        sql = 'insert into '+table+' (time, key, value) values (now(), %s, %s)'
+        cur.execute(sql, (key,value,))   
+        # commit the changes to the database
+        conn.commit()
+        # close the communication with the PostgreSQL
+        cur.close()
+    except Exception as ex:
+        print ("ERROR: ", ex) 
+        cur.execute("rollback")
 
 # exec in db
 def exec(sql):
