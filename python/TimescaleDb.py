@@ -57,6 +57,7 @@ def exec(sql):
         cur.close()
     except Exception as ex:
         print ("ERROR: ", ex) 
+        cur.execute("rollback")
 
 def connect(timescaledb_ip, timescaledb_username, timescaledb_password):
     try:       
