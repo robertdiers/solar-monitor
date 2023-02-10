@@ -7,7 +7,7 @@
 * iDM Heat Pump AERO SLM 6-17 with "solar input" feature
 * GoodWe 5048D-ES inverter with Tasmota Sonoff POW R3
 * 48V battery block with Daly BMS (3 blocks in parallel)
-* Tasmota device withg temperature sensor (Sonoff TH16 + Si7021)
+* Tasmota device with temperature sensor (Sonoff TH16 + Si7021)
 * Device to run the containers
 
 ## main Python scripts (startup and cron triggered):
