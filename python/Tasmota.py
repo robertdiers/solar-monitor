@@ -2,6 +2,7 @@
 
 import time
 import json
+import socket
 from paho.mqtt import client as mqtt_client
 
 client = "unknown"
