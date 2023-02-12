@@ -8,6 +8,7 @@ import BYD
 import Config
 import Kostal
 import IdmPump
+import Solax
 
 # metrics from Tasmota
 def tasmota(temp_mqtt_name, goodwe_mqtt_name):
@@ -63,6 +64,23 @@ def kostal(inverter_ip, inverter_port):
     except Exception as ex:
         print ("ERROR kostal: ", ex)
 
+# metrics from Solax
+def solax(solax_tokenid, solax_inverter):
+    try:
+        #read Solax
+        invert = solax_inverter.split(",")
+        #print(invert)
+        for i in invert:
+            res = Solax.read(solax_tokenid, i)
+            #print(res)
+            sn = res["sn"]
+            TimescaleDb.writeW('solax_power_'+sn, res["acpower"])
+            TimescaleDb.writeK('solax_yieldtoday_'+sn, res["yieldtoday"])
+            #TimescaleDb.writeW('solax_feedinpower_'+sn, res["feedinpower"])
+            #TimescaleDb.writeK('solax_feedinenergy_'+sn, res["feedinenergy"])
+    except Exception as ex:
+        print ("ERROR solax: ", ex)
+
 if __name__ == "__main__":  
     #print (datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " START #####")
     try:
@@ -77,6 +95,7 @@ if __name__ == "__main__":
         byd(conf["byd_ip"], conf["byd_port"])
         idm(conf["idm_ip"], conf["idm_port"])
         kostal(conf["inverter_ip"], conf["inverter_port"])
+        solax(conf["solax_tokenid"], conf["solax_inverter"])
 
         print (datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " OK")  
 

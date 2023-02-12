@@ -2,6 +2,7 @@
 
 import time
 import json
+import FlatJson
 import socket
 from paho.mqtt import client as mqtt_client
 
@@ -27,28 +28,12 @@ def off(name):
     except Exception as ex:
         print ("ERROR Tasmota: ", ex) 
 
-def flatten_json(y):
-    out = {}
-    def flatten(x, name=''):
-        if type(x) is dict:
-            for a in x:
-                flatten(x[a], name + a + '_')
-        elif type(x) is list:
-            i = 0
-            for a in x:
-                flatten(a, name + str(i) + '_')
-                i += 1
-        else:
-            out[name[:-1]] = x
-    flatten(y)
-    return out
-
 def on_message(client, userdata, message):
     global searchattributes
     global valueattributes
     content = str(message.payload.decode("utf-8"))
     #print(content)
-    json_object = flatten_json(json.loads(content))
+    json_object = FlatJson.flatten(content)
     #print(json_object)
     for attribute in searchattributes:
         if attribute in json_object:

@@ -93,6 +93,15 @@ def read():
             values["mqtt_password"] = os.getenv('MQTT_PASSWORD')
             #print ("using env: MQTT_PASSWORD")
         
+        values["solax_tokenid"] = config['SolaxSection']['solax_tokenid']
+        values["solax_inverter"] = config['SolaxSection']['solax_inverter']
+        if os.getenv('SOLAX_TOKENID','None') != 'None':
+            values["solax_tokenid"] = os.getenv('SOLAX_TOKENID')
+            #print ("using env: SOLAX_TOKENID")
+        if os.getenv('SOLAX_INVERTER','None') != 'None':
+            values["solax_inverter"] = os.getenv('SOLAX_INVERTER')
+            #print ("using env: SOLAX_INVERTER")
+        
         #print (datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " config: ", values)
 
         return values

@@ -5,6 +5,7 @@
 * BYD HVS storage
 * Kostal energy meter
 * iDM Heat Pump AERO SLM 6-17 with "solar input" feature
+* Solax Mini inverter
 * GoodWe 5048D-ES inverter with Tasmota Sonoff POW R3
 * 48V battery block with Daly BMS (3 blocks in parallel)
 * Tasmota device with temperature sensor (Sonoff TH16 + Si7021)
@@ -21,6 +22,7 @@
 * Daly.py - subscribes to MQTT topic to read data
 * IdmPump.py - read actual solar power from iDM heat pump (TCP Modbus)
 * Kostal.py - read actual values from Kostal inverter (TCP Modbus)
+* Solax.py - read actual values from Solax inverter (Solax Portal API)
 * Tasmota.py - read Tasmota data (MQTT)
 * TimescaleDb.py - write to TimescaleDB
 
