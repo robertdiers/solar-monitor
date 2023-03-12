@@ -109,7 +109,7 @@ if __name__ == "__main__":
         byd(conf["byd_ip"], conf["byd_port"])
         idm(conf["idm_ip"], conf["idm_port"])
         kostal(conf["inverter_ip"], conf["inverter_port"])
-        #solax(conf["solax_tokenid"], conf["solax_inverter"])
+        solax(conf["solax_tokenid"], conf["solax_inverter"])
         #goodwe(conf["sems_user"], conf["sems_password"], conf["sems_stationid"])
 
         print (datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " OK")  
