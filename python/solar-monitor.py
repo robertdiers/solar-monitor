@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 from datetime import datetime
+import math
 
 import TimescaleDb
 import Tasmota
@@ -9,12 +10,16 @@ import Config
 import Kostal
 import IdmPump
 import Solax
+import Goodwe
 
 # metrics from Tasmota
 def tasmota(temp_mqtt_name, goodwe_mqtt_name):
     try:
         result = Tasmota.get(temp_mqtt_name, "8", ["StatusSNS_SI7021_Temperature"])
-        TimescaleDb.writeT('tech_room', result["StatusSNS_SI7021_Temperature"])
+        if math.isnan(result["StatusSNS_SI7021_Temperature"]):
+            print(attribute+" nan: "+str(result["StatusSNS_SI7021_Temperature"]))
+        else:
+            TimescaleDb.writeT('tech_room', result["StatusSNS_SI7021_Temperature"])
     except Exception as ex:
         print ("ERROR tasmota "+temp_mqtt_name+": ", ex)
     try:
@@ -81,6 +86,15 @@ def solax(solax_tokenid, solax_inverter):
     except Exception as ex:
         print ("ERROR solax: ", ex)
 
+# metrics from Goodwe
+def goodwe(sems_user, sems_password, sems_stationid):
+    try:
+        #read Goodwe
+        res = Goodwe.read(sems_user, sems_password, sems_stationid)
+        print(res)
+    except Exception as ex:
+        print ("ERROR goodwe: ", ex)
+
 if __name__ == "__main__":  
     #print (datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " START #####")
     try:
@@ -96,6 +110,7 @@ if __name__ == "__main__":
         idm(conf["idm_ip"], conf["idm_port"])
         kostal(conf["inverter_ip"], conf["inverter_port"])
         solax(conf["solax_tokenid"], conf["solax_inverter"])
+        #goodwe(conf["sems_user"], conf["sems_password"], conf["sems_stationid"])
 
         print (datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " OK")  
 

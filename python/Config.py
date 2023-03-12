@@ -101,6 +101,19 @@ def read():
         if os.getenv('SOLAX_INVERTER','None') != 'None':
             values["solax_inverter"] = os.getenv('SOLAX_INVERTER')
             #print ("using env: SOLAX_INVERTER")
+ 
+        values["sems_user"] = config['GoodweSection']['sems_user']
+        values["sems_password"] = config['GoodweSection']['sems_password']
+        values["sems_stationid"] = config['GoodweSection']['sems_stationid']
+        if os.getenv('SEMS_USER','None') != 'None':
+            values["sems_user"] = os.getenv('SEMS_USER')
+            #print ("using env: SEMS_USER")
+        if os.getenv('SEMS_PASSWORD','None') != 'None':
+            values["sems_password"] = os.getenv('SEMS_PASSWORD')
+            #print ("using env: SEMS_PASSWORD")
+        if os.getenv('SEMS_STATIONID','None') != 'None':
+            values["sems_stationid"] = os.getenv('SEMS_STATIONID')
+            #print ("using env: SEMS_STATIONID")
         
         #print (datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " config: ", values)
 

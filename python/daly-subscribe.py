@@ -26,7 +26,7 @@ def writedb(name, json):
         if attribute in json:
             #print(attribute+": "+str(json[attribute]))
             value = 0
-            if math.isnan(value):
+            if math.isnan(json[attribute]):
                 print(attribute+" nan: "+str(json[attribute]))
             else:
                 value = float(json[attribute])
