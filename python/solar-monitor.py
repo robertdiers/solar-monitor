@@ -91,7 +91,30 @@ def goodwe(sems_user, sems_password, sems_stationid):
     try:
         #read Goodwe
         res = Goodwe.read(sems_user, sems_password, sems_stationid)
-        print(res)
+        #print(res)
+        TimescaleDb.writeT('goodwe_temp', res["tempperature"])
+
+        #53.1V/0.7A/37W
+        battery = res["battery"].split('/')
+        #print(battery)
+        TimescaleDb.writeV('goodwe_battery_volt', float(battery[0].replace('V','')))
+        TimescaleDb.writeW('goodwe_battery_watt', float(battery[2].replace('W','')))
+
+        #print('1')
+        TimescaleDb.writeP('goodwe_battery_soh', round(float(res["soh"].replace('%',''))/100, 2))
+        TimescaleDb.writeP('goodwe_battery_soc', round(float(res["soc"].replace('%',''))/100, 2))
+
+        #print('2')
+        TimescaleDb.writeW('goodwe_output', res["output_power"].replace('W',''))
+        TimescaleDb.writeK('goodwe_yieldtoday', res["daily_generation"].replace('kWh',''))
+
+        #330.9V/0.4A
+        pv1 = res["pv_input_1"].split('/')
+        pv2 = res["pv_input_2"].split('/')
+        pv1w = float(pv1[0].replace('V','')) * float(pv1[1].replace('A',''))
+        pv2w = float(pv2[0].replace('V','')) * float(pv2[1].replace('A',''))
+        TimescaleDb.writeW('goodwe_pv', pv1w + pv2w)
+
     except Exception as ex:
         print ("ERROR goodwe: ", ex)
 
@@ -110,7 +133,7 @@ if __name__ == "__main__":
         idm(conf["idm_ip"], conf["idm_port"])
         kostal(conf["inverter_ip"], conf["inverter_port"])
         solax(conf["solax_tokenid"], conf["solax_inverter"])
-        #goodwe(conf["sems_user"], conf["sems_password"], conf["sems_stationid"])
+        goodwe(conf["sems_user"], conf["sems_password"], conf["sems_stationid"])
 
         print (datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " OK")  
 
