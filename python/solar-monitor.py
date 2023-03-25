@@ -113,7 +113,7 @@ def goodwe(sems_user, sems_password, sems_stationid):
         pv2 = res["pv_input_2"].split('/')
         pv1w = float(pv1[0].replace('V','')) * float(pv1[1].replace('A',''))
         pv2w = float(pv2[0].replace('V','')) * float(pv2[1].replace('A',''))
-        TimescaleDb.writeW('goodwe_pv', pv1w + pv2w)
+        TimescaleDb.writeW('goodwe_pv', round(pv1w + pv2w,2))
 
     except Exception as ex:
         print ("ERROR goodwe: ", ex)
