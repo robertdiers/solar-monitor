@@ -1,1 +1,1 @@
-sudo docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t docker.io/robertdiers/solarmonitor:latest --push .
+sudo docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t solarmonitor --push .

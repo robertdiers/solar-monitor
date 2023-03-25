@@ -20,6 +20,7 @@
 * BYD.py - read actual values from BYD battery (TCP Socket)
 * Config.py - read config file and check for environment parameter overrides
 * Daly.py - subscribes to MQTT topic to read data
+* Goodwe.py - read actual values from Goodwe inverter (SEMS Portal API)
 * IdmPump.py - read actual solar power from iDM heat pump (TCP Modbus)
 * Kostal.py - read actual values from Kostal inverter (TCP Modbus)
 * Solax.py - read actual values from Solax inverter (Solax Portal API)
@@ -29,6 +30,9 @@
 Hint: data input for iDM is realized with dedicated container: https://github.com/robertdiers/kostal_idmpump
 
 ## Docker
+
+please override config values using environment variables
+
 ```
 docker run -d --restart always --name solarmonitor -e MQTT_PASSWORD=password ghcr.io/robertdiers/solar-monitor:1.0
 ```

@@ -107,13 +107,13 @@ def read():
         values["sems_stationid"] = config['GoodweSection']['sems_stationid']
         if os.getenv('SEMS_USER','None') != 'None':
             values["sems_user"] = os.getenv('SEMS_USER')
-            #print ("using env: SEMS_USER")
+            #print ("using env: SEMS_USER "+values["sems_user"])
         if os.getenv('SEMS_PASSWORD','None') != 'None':
             values["sems_password"] = os.getenv('SEMS_PASSWORD')
-            #print ("using env: SEMS_PASSWORD")
+            #print ("using env: SEMS_PASSWORD "+values["sems_password"])
         if os.getenv('SEMS_STATIONID','None') != 'None':
             values["sems_stationid"] = os.getenv('SEMS_STATIONID')
-            #print ("using env: SEMS_STATIONID")
+            #print ("using env: SEMS_STATIONID "+values["sems_stationid"])
         
         #print (datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " config: ", values)
 
