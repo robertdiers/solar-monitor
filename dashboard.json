@@ -267,7 +267,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  value,\n  key\nFROM voltages\nWHERE\n  $__timeFilter(\"time\") \n    and key like '%_Voltage'\nORDER BY 1",
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  value,\n  key\nFROM voltages\nWHERE\n  $__timeFilter(\"time\") \n  and key not like 'byd_%'\nORDER BY 1",
           "refId": "G",
           "select": [
             [
@@ -1445,20 +1445,21 @@
     }
   ],
   "refresh": "",
-  "schemaVersion": 37,
+  "revision": 1,
+  "schemaVersion": 38,
   "style": "dark",
   "tags": [],
   "templating": {
     "list": []
   },
   "time": {
-    "from": "now-1h",
+    "from": "now-24h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Robert",
   "uid": "EFixgMmRz",
-  "version": 7,
+  "version": 8,
   "weekStart": ""
 }
