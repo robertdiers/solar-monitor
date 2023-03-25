@@ -267,7 +267,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  value,\n  key\nFROM voltages\nWHERE\n  $__timeFilter(\"time\") \n  and key not like 'byd_%'\nORDER BY 1",
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  value,\n  key\nFROM voltages\nWHERE\n  $__timeFilter(\"time\") \n  and key like '%Voltage' or key like '%battery_volt'\nORDER BY 1",
           "refId": "G",
           "select": [
             [
@@ -795,7 +795,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  value,\n  key\nFROM voltages\nWHERE\n  $__timeFilter(\"time\") \n    and (key like '%minvolt' or key like '%maxvolt')\nORDER BY 1",
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  value,\n  key\nFROM voltages\nWHERE\n  $__timeFilter(\"time\") \n    and (key like '%minvolt' or key like '%maxvolt' or key like '%High_CellV' or key like '%Low_CellV')\nORDER BY 1",
           "refId": "G",
           "select": [
             [
@@ -836,7 +836,7 @@
           ]
         }
       ],
-      "title": "BYD",
+      "title": "Max/Min",
       "type": "timeseries"
     },
     {
@@ -1052,12 +1052,13 @@
             "type": "postgres",
             "uid": "emIymM7Vz"
           },
+          "editorMode": "code",
           "format": "time_series",
           "group": [],
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  value,\n  key\nFROM voltages\nWHERE\n  $__timeFilter(\"time\") AND\n  key in ('Daly1_CellV_CellV 1','Daly1_CellV_CellV 2','Daly1_CellV_CellV 3','Daly1_CellV_CellV 4','Daly1_CellV_CellV 5','Daly1_CellV_CellV 6','Daly1_CellV_CellV 7','Daly1_CellV_CellV 8','Daly1_CellV_CellV 9','Daly1_CellV_CellV 10','Daly1_CellV_CellV 11','Daly1_CellV_CellV 12','Daly1_CellV_CellV 13','Daly1_CellV_CellV 14','Daly1_CellV_CellV 15','Daly1_CellV_CellV 16')\nORDER BY 1",
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  value,\n  key\nFROM voltages\nWHERE\n  $__timeFilter(\"time\") AND\n  key in ('Daly1_CellV_CellV_1','Daly1_CellV_CellV_2','Daly1_CellV_CellV_3','Daly1_CellV_CellV_4','Daly1_CellV_CellV_5','Daly1_CellV_CellV_6','Daly1_CellV_CellV_7','Daly1_CellV_CellV_8','Daly1_CellV_CellV_9','Daly1_CellV_CellV_10','Daly1_CellV_CellV_11','Daly1_CellV_CellV_12','Daly1_CellV_CellV_13','Daly1_CellV_CellV_14','Daly1_CellV_CellV_15','Daly1_CellV_CellV_16')\nORDER BY 1",
           "refId": "D",
           "select": [
             [
@@ -1069,6 +1070,23 @@
               }
             ]
           ],
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          },
           "table": "solar_kostal_batterypercent",
           "timeColumn": "\"time\"",
           "timeColumnType": "timestamptz",
@@ -1297,12 +1315,13 @@
             "type": "postgres",
             "uid": "emIymM7Vz"
           },
+          "editorMode": "code",
           "format": "time_series",
           "group": [],
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  value,\n  key\nFROM voltages\nWHERE\n  $__timeFilter(\"time\") AND\n  key in ('Daly2_CellV_CellV 1','Daly2_CellV_CellV 2','Daly2_CellV_CellV 3','Daly2_CellV_CellV 4','Daly2_CellV_CellV 5','Daly2_CellV_CellV 6','Daly2_CellV_CellV 7','Daly2_CellV_CellV 8','Daly2_CellV_CellV 9','Daly2_CellV_CellV 10','Daly2_CellV_CellV 11','Daly2_CellV_CellV 12','Daly2_CellV_CellV 13','Daly2_CellV_CellV 14','Daly2_CellV_CellV 15','Daly2_CellV_CellV 16')\nORDER BY 1",
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  value,\n  key\nFROM voltages\nWHERE\n  $__timeFilter(\"time\") AND\n  key in ('Daly2_CellV_CellV_1','Daly2_CellV_CellV_2','Daly2_CellV_CellV_3','Daly2_CellV_CellV_4','Daly2_CellV_CellV_5','Daly2_CellV_CellV_6','Daly2_CellV_CellV_7','Daly2_CellV_CellV_8','Daly2_CellV_CellV_9','Daly2_CellV_CellV_10','Daly2_CellV_CellV_11','Daly2_CellV_CellV_12','Daly2_CellV_CellV_13','Daly2_CellV_CellV_14','Daly2_CellV_CellV_15','Daly2_CellV_CellV_16')\nORDER BY 1",
           "refId": "D",
           "select": [
             [
@@ -1314,6 +1333,23 @@
               }
             ]
           ],
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          },
           "table": "solar_kostal_batterypercent",
           "timeColumn": "\"time\"",
           "timeColumnType": "timestamptz",
@@ -1411,12 +1447,13 @@
             "type": "postgres",
             "uid": "emIymM7Vz"
           },
+          "editorMode": "code",
           "format": "time_series",
           "group": [],
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  value,\n  key\nFROM voltages\nWHERE\n  $__timeFilter(\"time\") AND\n  key in ('Daly3_CellV_CellV 1','Daly3_CellV_CellV 2','Daly3_CellV_CellV 3','Daly3_CellV_CellV 4','Daly3_CellV_CellV 5','Daly3_CellV_CellV 6','Daly3_CellV_CellV 7','Daly3_CellV_CellV 8','Daly3_CellV_CellV 9','Daly3_CellV_CellV 10','Daly3_CellV_CellV 11','Daly3_CellV_CellV 12','Daly3_CellV_CellV 13','Daly3_CellV_CellV 14','Daly3_CellV_CellV 15','Daly3_CellV_CellV 16')\nORDER BY 1",
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  value,\n  key\nFROM voltages\nWHERE\n  $__timeFilter(\"time\") AND\n  key in ('Daly3_CellV_CellV_1','Daly3_CellV_CellV_2','Daly3_CellV_CellV_3','Daly3_CellV_CellV_4','Daly3_CellV_CellV_5','Daly3_CellV_CellV_6','Daly3_CellV_CellV_7','Daly3_CellV_CellV_8','Daly3_CellV_CellV_9','Daly3_CellV_CellV_10','Daly3_CellV_CellV_11','Daly3_CellV_CellV_12','Daly3_CellV_CellV_13','Daly3_CellV_CellV_14','Daly3_CellV_CellV_15','Daly3_CellV_CellV_16')\nORDER BY 1",
           "refId": "D",
           "select": [
             [
@@ -1428,6 +1465,23 @@
               }
             ]
           ],
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          },
           "table": "solar_kostal_batterypercent",
           "timeColumn": "\"time\"",
           "timeColumnType": "timestamptz",
@@ -1453,13 +1507,13 @@
     "list": []
   },
   "time": {
-    "from": "now-24h",
+    "from": "now-1h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Robert",
   "uid": "EFixgMmRz",
-  "version": 8,
+  "version": 9,
   "weekStart": ""
 }
