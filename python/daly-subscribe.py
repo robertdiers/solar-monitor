@@ -8,18 +8,16 @@ import Config
 import Daly
 import TimescaleDb
 
-#{"Pack":{"Device_Name":"DALY1","Device_IP":"192.168.1.29","Voltage":51.5,"Current":5.6,"Power":288.4,"SOC":48.5,"Remaining_mAh":43650,"Cycles":79,
-#"BMS_Temp":13,"Cell_Temp":13,"High_CellNr":15,"High_CellV":3.249,"Low_CellNr":9,"Low_CellV":3.189,"Cell_Diff":60,"DischargeFET":true,"ChargeFET":true,"Status":"Charge","Cells":16,"Heartbeat":85,"Balance_Active":false,"Relais_Active":false,"Relais_Manual":false},
-#"CellV":{"CellV 1":3.244,"Balance 1":false,"CellV 2":3.227,"Balance 2":false,"CellV 3":3.232,"Balance 3":false,"CellV 4":3.199,"Balance 4":false,"CellV 5":3.204,"Balance 5":false,"CellV 6":3.191,"Balance 6":false,"CellV 7":3.229,"Balance 7":false,"CellV 8":3.209,"Balance 8":false,"CellV 9":3.188,"Balance 9":false,"CellV 10":3.189,"Balance 10":false,"CellV 11":3.21,"Balance 11":false,"CellV 12":3.207,"Balance 12":false,"CellV 13":3.249,"Balance 13":false,"CellV 14":3.249,"Balance 14":false,"CellV 15":3.249,"Balance 15":false,"CellV 16":3.239,"Balance 16":false},"CellTemp":{"Cell_Temp1":13}}
+#{'Device_Name': 'DALY2', 'Device_IP': '192.168.50.81', 'Device_ESP_VCC': 2.64, 'Device_Relais_Active': False, 'Device_Relais_Manual': False, 'Pack_Voltage': 53.8, 'Pack_Current': 1.1, 'Pack_Power': 59.18, 'Pack_SOC': 100, 'Pack_Remaining_mAh': 90000, 'Pack_Cycles': 60, 'Pack_BMS_Temp': 19, 'Pack_Cell_Temp': 19, 'Pack_High_CellNr': 14, 'Pack_High_CellV': 3.397, 'Pack_Low_CellNr': 9, 'Pack_Low_CellV': 3.34, 'Pack_Cell_Diff': 57, 'Pack_DischargeFET': True, 'Pack_ChargeFET': True, 'Pack_Status': 'Charge', 'Pack_Cells': 16, 'Pack_Heartbeat': 71, 'Pack_Balance_Active': False, 'CellV_CellV_1': 3.369, 'CellV_Balance_1': False, 'CellV_CellV_2': 3.36, 'CellV_Balance_2': False, 'CellV_CellV_3': 3.375, 'CellV_Balance_3': False, 'CellV_CellV_4': 3.358, 'CellV_Balance_4': False, 'CellV_CellV_5': 3.362, 'CellV_Balance_5': False, 'CellV_CellV_6': 3.36, 'CellV_Balance_6': False, 'CellV_CellV_7': 3.346, 'CellV_Balance_7': False, 'CellV_CellV_8': 3.35, 'CellV_Balance_8': False, 'CellV_CellV_9': 3.34, 'CellV_Balance_9': False, 'CellV_CellV_10': 3.391, 'CellV_Balance_10': False, 'CellV_CellV_11': 3.346, 'CellV_Balance_11': False, 'CellV_CellV_12': 3.348, 'CellV_Balance_12': False, 'CellV_CellV_13': 3.392, 'CellV_Balance_13': False, 'CellV_CellV_14': 3.394, 'CellV_Balance_14': False, 'CellV_CellV_15': 3.391, 'CellV_Balance_15': False, 'CellV_CellV_16': 3.386, 'CellV_Balance_16': False, 'CellTemp_Cell_Temp_1': 19}
 
 #define interesting attributes        
 attributes = ["Pack_Voltage", "Pack_Power", "Pack_SOC", "Pack_Cycles", "Pack_High_CellV", "Pack_Low_CellV", "Pack_Cell_Diff", "Pack_Cell_Temp", "Pack_BMS_Temp"]
 #max 48 blocks
 for x in range(16):
-    attributes.append("CellV_CellV "+str(x))
+    attributes.append("CellV_CellV_"+str(x))
 
 def writedb(name, json):
-    print (json)
+    #print (json)
     global attributes
     for attribute in attributes:
         #print(attribute)
