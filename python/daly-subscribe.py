@@ -19,7 +19,7 @@ for x in range(16):
     attributes.append("CellV_CellV "+str(x))
 
 def writedb(name, json):
-    #print (json)
+    print (json)
     global attributes
     for attribute in attributes:
         #print(attribute)
