@@ -27,11 +27,11 @@ def tasmota(temp_mqtt_name, goodwe_mqtt_name):
         if math.isnan(result["StatusSNS_ENERGY_Power"]):
             print(attribute+" nan: "+str(result["StatusSNS_ENERGY_Power"]))
         else:
-            TimescaleDb.writeT('goodwe_tasmota_power', result["StatusSNS_ENERGY_Power"])
+            TimescaleDb.writeW('goodwe_tasmota_power', result["StatusSNS_ENERGY_Power"])
         if math.isnan(result["StatusSNS_ENERGY_Today"]):
             print(attribute+" nan: "+str(result["StatusSNS_ENERGY_Today"]))
         else:
-            TimescaleDb.writeT('goodwe_tasmota_dailyyield', result["StatusSNS_ENERGY_Today"])
+            TimescaleDb.writeK('goodwe_tasmota_dailyyield', result["StatusSNS_ENERGY_Today"])
     except Exception as ex:
         print ("ERROR tasmota "+goodwe_mqtt_name+": ", ex)  
 
