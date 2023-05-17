@@ -38,10 +38,10 @@ docker run -d --restart always --name solarmonitor -e MQTT_PASSWORD=password ghc
 ```
 
 ### TimescaleDB (please define your own password)
-Using /dev/shm to store data in memory, sd card doesn't have to store it:
+Using tmpfs to store data in memory, sd card doesn't have to store it:
 
 ```
-docker run -d --restart always --name timescaledb -p 5432:5432 -e POSTGRES_PASSWORD=password -v /dev/shm/pgdata:/var/lib/postgresql/data timescale/timescaledb:latest-pg14
+docker run -d --restart always --name timescaledb -p 5432:5432 -e POSTGRES_PASSWORD=password --mount type=tmpfs,destination=/var/lib/postgresql/data timescale/timescaledb:latest-pg14
 ```
 
 ### Grafana
