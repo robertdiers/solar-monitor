@@ -1,3 +1,3 @@
 #!/bin/bash
 cd /app/python
-python3 solar-monitor.py
+/usr/local/bin/python3 solar-monitor.py

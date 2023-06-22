@@ -1,3 +1,3 @@
 #!/bin/bash
 cd /app/python
-python3 daly-subscribe.py
+/usr/local/bin/python3 daly-subscribe.py
