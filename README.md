@@ -8,7 +8,7 @@
 * Solax Mini inverter
 * GoodWe 5048D-ES inverter with Tasmota Sonoff POW R3
 * 48V battery block with Daly BMS (3 blocks in parallel)
-* Tasmota device with temperature sensor (Sonoff TH16 + Si7021)
+* Tasmota device with temperature sensor (Sonoff TH16 + DS18B20)
 * Device to run the containers
 
 ## main Python scripts (startup and cron triggered):
@@ -34,7 +34,7 @@ Hint: data input for iDM is realized with dedicated container: https://github.co
 please override config values using environment variables
 
 ```
-docker run -d --restart always --name solarmonitor -e MQTT_PASSWORD=password ghcr.io/robertdiers/solar-monitor:1.10
+docker run -d --restart always --name solarmonitor -e MQTT_PASSWORD=password ghcr.io/robertdiers/solar-monitor:1.11
 ```
 
 ### TimescaleDB (please define your own password)

@@ -15,11 +15,11 @@ import Goodwe
 # metrics from Tasmota
 def tasmota(temp_mqtt_name, goodwe_mqtt_name):
     try:
-        result = Tasmota.get(temp_mqtt_name, "8", ["StatusSNS_SI7021_Temperature"])
-        if math.isnan(result["StatusSNS_SI7021_Temperature"]):
-            print(attribute+" nan: "+str(result["StatusSNS_SI7021_Temperature"]))
+        result = Tasmota.get(temp_mqtt_name, "8", ["StatusSNS_DS18B20_Temperature"])
+        if math.isnan(result["StatusSNS_DS18B20_Temperature"]):
+            print(attribute+" nan: "+str(result["StatusSNS_DS18B20_Temperature"]))
         else:
-            TimescaleDb.writeT('tech_room', result["StatusSNS_SI7021_Temperature"])
+            TimescaleDb.writeT('bath_room', result["StatusSNS_DS18B20_Temperature"])
     except Exception as ex:
         print ("ERROR tasmota "+temp_mqtt_name+": ", ex)
     try:
