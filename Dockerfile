@@ -2,7 +2,7 @@ FROM docker.io/debian:stable-slim
 
 RUN apt update
 RUN apt -y upgrade
-RUN apt -y install gcc cron python3 python3-pip libpq-dev python3-dev
+RUN apt -y install gcc cron python3 python3-full python3-pip libpq-dev python3-dev
 RUN pip3 install configparser pymodbus psycopg2 paho-mqtt pyserial_asyncio pyserial requests
 
 # copy files
