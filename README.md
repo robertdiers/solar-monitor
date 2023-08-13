@@ -34,7 +34,7 @@ Hint: data input for iDM is realized with dedicated container: https://github.co
 please override config values using environment variables
 
 ```
-docker run -d --restart always --name solarmonitor -e MQTT_PASSWORD=password ghcr.io/robertdiers/solar-monitor:1.11
+docker run -d --restart always --name solarmonitor -e MQTT_PASSWORD=password ghcr.io/robertdiers/solar-monitor:1.12
 ```
 
 ### TimescaleDB (please define your own password)
