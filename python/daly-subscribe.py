@@ -13,7 +13,7 @@ import TimescaleDb
 #define interesting attributes        
 attributes = ["Pack_Voltage", "Pack_Power", "Pack_SOC", "Pack_Cycles", "Pack_High_CellV", "Pack_Low_CellV", "Pack_Cell_Diff", "Pack_Cell_Temp", "Pack_BMS_Temp"]
 #max 48 blocks
-for x in range(16):
+for x in range(17):
     attributes.append("CellV_CellV_"+str(x))
 
 def writedb(name, json):
