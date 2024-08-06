@@ -2,7 +2,6 @@
 
 import json
 import requests
-import FlatJson
 
 # _LoginURL = "https://eu.semsportal.com/api/v2/Common/CrossLogin"
 _LoginURL = "https://www.semsportal.com/api/v2/Common/CrossLogin"
@@ -70,7 +69,7 @@ class SemsApi:
         try:
             # Get the status of our SEMS Power Station
             if maxTokenRetries <= 0:
-                raise OutOfRetries
+                raise Exception('OutOfRetries')
             if self._token is None or renewToken:
                 self._token = self.getLoginToken(self._username, self._password)
 
