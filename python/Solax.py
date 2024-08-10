@@ -3,13 +3,13 @@
 import requests
 import FlatJson
 
-#https://www.solaxcloud.com/proxyApp/proxy/api/getRealtimeInfo.do?tokenId=MYTOKEN&sn=REGISTRATIONNO
+#https://global.solaxcloud.com/proxyApp/proxy/api/getRealtimeInfo.do?tokenId=MYTOKEN&sn=REGISTRATIONNO
 
 def read(solax_tokenid, solax_inverter):  
     try:
 
         #connection Solax API
-        res = requests.get('https://www.solaxcloud.com/proxyApp/proxy/api/getRealtimeInfo.do?tokenId='+solax_tokenid+'&sn='+solax_inverter)
+        res = requests.get('https://global.solaxcloud.com/proxyApp/proxy/api/getRealtimeInfo.do?tokenId='+solax_tokenid+'&sn='+solax_inverter)
         
         result = {}
         result["status_code"] = res.status_code

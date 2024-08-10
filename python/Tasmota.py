@@ -79,7 +79,7 @@ def connect(mqtt_broker, mqtt_port, mqtt_user, mqtt_password):
 
         # Set Connecting Client ID
         global client
-        client = mqtt_client.Client(client_id)
+        client = mqtt_client.Client(mqtt_client.CallbackAPIVersion.VERSION1, client_id)
         client.username_pw_set(mqtt_user, mqtt_password)
         client.connect(mqtt_broker, mqtt_port)
  
