@@ -16,7 +16,7 @@ def read(solax_tokenid, solax_inverter):
 
         json_object = FlatJson.flatten(res.content)
         #print(json_object)
-        result["inverterSN"] = json_object['result_inverterSN']
+        #result["inverterSN"] = json_object['result_inverterSN']
         result["sn"] = json_object['result_sn']
         result["acpower"] = json_object['result_acpower'] #W
         result["yieldtoday"] = json_object['result_yieldtoday'] #KWh
