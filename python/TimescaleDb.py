@@ -8,11 +8,13 @@ conn = "unknown"
 
 # write watts to TimescaleDB
 def writeW(key, value):
-    write('watts',key,value)
+    if value > 0:
+        write('watts',key,value)
 
 # write voltages to TimescaleDB
 def writeV(key, value):
-    write('voltages',key,value)
+    if value > 0:
+        write('voltages',key,value)
 
 # write temps to TimescaleDB
 def writeT(key, value):
@@ -24,7 +26,8 @@ def writeP(key, value):
 
 # write kilowatthours to TimescaleDB
 def writeK(key, value):
-    write('kilowatthours',key,value)
+    if value > 0:
+        write('kilowatthours',key,value)
 
 # write data to TimescaleDB
 def write(table, key, value):
