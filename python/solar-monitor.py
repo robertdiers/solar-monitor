@@ -111,14 +111,21 @@ def goodwe(sems_user, sems_password, sems_stationid):
         TimescaleDb.writeP('goodwe_battery_soc', round(float(res["soc"].replace('%',''))/100, 2))
 
         #print('2')
+        #print(res["output_power"].replace('W',''))
         TimescaleDb.writeW('goodwe_output', res["output_power"].replace('W',''))
+        #print('3')
         TimescaleDb.writeK('goodwe_yieldtoday', res["daily_generation"].replace('kWh',''))
 
         #330.9V/0.4A
+        #print('4')
         pv1 = res["pv_input_1"].split('/')
         pv2 = res["pv_input_2"].split('/')
+        #print(pv1)
+        #print(pv2)
         pv1w = float(pv1[0].replace('V','')) * float(pv1[1].replace('A',''))
         pv2w = float(pv2[0].replace('V','')) * float(pv2[1].replace('A',''))
+        #print(pv1w)
+        #print(pv2w)
         TimescaleDb.writeW('goodwe_pv', round(pv1w + pv2w,2))
 
     except Exception as ex:

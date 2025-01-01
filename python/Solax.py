@@ -6,6 +6,7 @@ import FlatJson
 #https://global.solaxcloud.com/proxyApp/proxy/api/getRealtimeInfo.do?tokenId=MYTOKEN&sn=REGISTRATIONNO
 
 def read(solax_tokenid, solax_inverter):  
+    json_object = ''
     try:
 
         #connection Solax API
@@ -16,7 +17,6 @@ def read(solax_tokenid, solax_inverter):
 
         json_object = FlatJson.flatten(res.content)
         #print(json_object)
-        #result["inverterSN"] = json_object['result_inverterSN']
         result["sn"] = json_object['result_sn']
         result["acpower"] = json_object['result_acpower'] #W
         result["yieldtoday"] = json_object['result_yieldtoday'] #KWh
@@ -24,6 +24,7 @@ def read(solax_tokenid, solax_inverter):
         result["feedinenergy"] = json_object['result_feedinenergy'] #KWh
         result["inverterStatus"] = json_object['result_inverterStatus']
 
-        return result      
+        return result
     except Exception as ex:
+        print (json_object) 
         print ("ERROR Solax: ", ex) 
