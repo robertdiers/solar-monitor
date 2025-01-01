@@ -24,14 +24,13 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 1,
+  "id": 2,
   "links": [],
-  "liveNow": false,
   "panels": [
     {
       "datasource": {
         "type": "postgres",
-        "uid": "emIymM7Vz"
+        "uid": "e490477d-e201-4dc7-b0cc-0dda3d4e64f5"
       },
       "fieldConfig": {
         "defaults": {
@@ -39,11 +38,13 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 0,
             "gradientMode": "none",
@@ -52,6 +53,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineStyle": {
               "fill": "solid"
@@ -107,11 +109,12 @@
           "sort": "none"
         }
       },
+      "pluginVersion": "11.3.0+security-01",
       "targets": [
         {
           "datasource": {
             "type": "postgres",
-            "uid": "emIymM7Vz"
+            "uid": "e490477d-e201-4dc7-b0cc-0dda3d4e64f5"
           },
           "editorMode": "code",
           "format": "time_series",
@@ -182,7 +185,7 @@
     {
       "datasource": {
         "type": "postgres",
-        "uid": "emIymM7Vz"
+        "uid": "e490477d-e201-4dc7-b0cc-0dda3d4e64f5"
       },
       "fieldConfig": {
         "defaults": {
@@ -190,11 +193,13 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 0,
             "gradientMode": "none",
@@ -203,6 +208,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 2,
@@ -255,11 +261,12 @@
           "sort": "none"
         }
       },
+      "pluginVersion": "11.3.0+security-01",
       "targets": [
         {
           "datasource": {
             "type": "postgres",
-            "uid": "emIymM7Vz"
+            "uid": "e490477d-e201-4dc7-b0cc-0dda3d4e64f5"
           },
           "editorMode": "code",
           "format": "time_series",
@@ -314,7 +321,7 @@
     {
       "datasource": {
         "type": "postgres",
-        "uid": "emIymM7Vz"
+        "uid": "e490477d-e201-4dc7-b0cc-0dda3d4e64f5"
       },
       "fieldConfig": {
         "defaults": {
@@ -322,11 +329,13 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 0,
             "gradientMode": "none",
@@ -335,6 +344,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 2,
@@ -387,11 +397,12 @@
           "sort": "none"
         }
       },
+      "pluginVersion": "11.3.0+security-01",
       "targets": [
         {
           "datasource": {
             "type": "postgres",
-            "uid": "emIymM7Vz"
+            "uid": "e490477d-e201-4dc7-b0cc-0dda3d4e64f5"
           },
           "editorMode": "code",
           "format": "time_series",
@@ -399,7 +410,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  value,\n  key\nFROM percentages\nWHERE\n  $__timeFilter(\"time\") \nORDER BY 1",
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  value,\n  key\nFROM percentages\nWHERE\n  $__timeFilter(\"time\") \nAND SUBSTRING(key, 1, 5) != 'xmrig'\nORDER BY 1",
           "refId": "G",
           "select": [
             [
@@ -446,7 +457,7 @@
     {
       "datasource": {
         "type": "postgres",
-        "uid": "emIymM7Vz"
+        "uid": "e490477d-e201-4dc7-b0cc-0dda3d4e64f5"
       },
       "fieldConfig": {
         "defaults": {
@@ -454,11 +465,13 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 0,
             "gradientMode": "none",
@@ -467,6 +480,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 2,
@@ -519,11 +533,12 @@
           "sort": "none"
         }
       },
+      "pluginVersion": "11.3.0+security-01",
       "targets": [
         {
           "datasource": {
             "type": "postgres",
-            "uid": "emIymM7Vz"
+            "uid": "e490477d-e201-4dc7-b0cc-0dda3d4e64f5"
           },
           "editorMode": "code",
           "format": "time_series",
@@ -578,7 +593,7 @@
     {
       "datasource": {
         "type": "postgres",
-        "uid": "emIymM7Vz"
+        "uid": "e490477d-e201-4dc7-b0cc-0dda3d4e64f5"
       },
       "fieldConfig": {
         "defaults": {
@@ -586,11 +601,13 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 0,
             "gradientMode": "none",
@@ -599,6 +616,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 2,
@@ -651,11 +669,12 @@
           "sort": "none"
         }
       },
+      "pluginVersion": "11.3.0+security-01",
       "targets": [
         {
           "datasource": {
             "type": "postgres",
-            "uid": "emIymM7Vz"
+            "uid": "e490477d-e201-4dc7-b0cc-0dda3d4e64f5"
           },
           "editorMode": "code",
           "format": "time_series",
@@ -710,7 +729,7 @@
     {
       "datasource": {
         "type": "postgres",
-        "uid": "emIymM7Vz"
+        "uid": "e490477d-e201-4dc7-b0cc-0dda3d4e64f5"
       },
       "fieldConfig": {
         "defaults": {
@@ -718,11 +737,13 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 0,
             "gradientMode": "none",
@@ -731,6 +752,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 2,
@@ -783,11 +805,12 @@
           "sort": "none"
         }
       },
+      "pluginVersion": "11.3.0+security-01",
       "targets": [
         {
           "datasource": {
             "type": "postgres",
-            "uid": "emIymM7Vz"
+            "uid": "e490477d-e201-4dc7-b0cc-0dda3d4e64f5"
           },
           "editorMode": "code",
           "format": "time_series",
@@ -842,7 +865,7 @@
     {
       "datasource": {
         "type": "postgres",
-        "uid": "emIymM7Vz"
+        "uid": "e490477d-e201-4dc7-b0cc-0dda3d4e64f5"
       },
       "fieldConfig": {
         "defaults": {
@@ -850,11 +873,13 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 0,
             "gradientMode": "none",
@@ -863,6 +888,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 2,
@@ -915,11 +941,12 @@
           "sort": "none"
         }
       },
+      "pluginVersion": "11.3.0+security-01",
       "targets": [
         {
           "datasource": {
             "type": "postgres",
-            "uid": "emIymM7Vz"
+            "uid": "e490477d-e201-4dc7-b0cc-0dda3d4e64f5"
           },
           "editorMode": "code",
           "format": "time_series",
@@ -973,7 +1000,7 @@
     {
       "datasource": {
         "type": "postgres",
-        "uid": "emIymM7Vz"
+        "uid": "e490477d-e201-4dc7-b0cc-0dda3d4e64f5"
       },
       "fieldConfig": {
         "defaults": {
@@ -981,11 +1008,13 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 0,
             "gradientMode": "none",
@@ -994,6 +1023,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 2,
@@ -1033,6 +1063,278 @@
         "x": 0,
         "y": 38
       },
+      "id": 17,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.0+security-01",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "e490477d-e201-4dc7-b0cc-0dda3d4e64f5"
+          },
+          "editorMode": "code",
+          "format": "time_series",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  value,\n  key\nFROM kilowatthours\nWHERE\n  $__timeFilter(\"time\") and key not like '%Cycles'\nORDER BY 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          },
+          "table": "solar_battery_chargestatus",
+          "timeColumn": "\"time\"",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "kWh",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "e490477d-e201-4dc7-b0cc-0dda3d4e64f5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "axisSoftMax": 1,
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 2,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 38
+      },
+      "id": 18,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.0+security-01",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "e490477d-e201-4dc7-b0cc-0dda3d4e64f5"
+          },
+          "editorMode": "code",
+          "format": "time_series",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  value,\n  key\nFROM percentages\nWHERE\n  $__timeFilter(\"time\") \nAND SUBSTRING(key, 1, 5) = 'xmrig'\nORDER BY 1",
+          "refId": "G",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          },
+          "table": "solar_battery_chargestatus",
+          "timeColumn": "\"time\"",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "Xmrig Percentage",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "e490477d-e201-4dc7-b0cc-0dda3d4e64f5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 2,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 46
+      },
       "id": 10,
       "options": {
         "legend": {
@@ -1046,11 +1348,12 @@
           "sort": "none"
         }
       },
+      "pluginVersion": "11.3.0+security-01",
       "targets": [
         {
           "datasource": {
             "type": "postgres",
-            "uid": "emIymM7Vz"
+            "uid": "e490477d-e201-4dc7-b0cc-0dda3d4e64f5"
           },
           "editorMode": "code",
           "format": "time_series",
@@ -1105,7 +1408,7 @@
     {
       "datasource": {
         "type": "postgres",
-        "uid": "emIymM7Vz"
+        "uid": "e490477d-e201-4dc7-b0cc-0dda3d4e64f5"
       },
       "fieldConfig": {
         "defaults": {
@@ -1113,11 +1416,13 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 0,
             "gradientMode": "none",
@@ -1126,137 +1431,7 @@
               "tooltip": false,
               "viz": false
             },
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 2,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": true,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 38
-      },
-      "id": 17,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "right",
-          "showLegend": true
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "postgres",
-            "uid": "emIymM7Vz"
-          },
-          "editorMode": "code",
-          "format": "time_series",
-          "group": [],
-          "metricColumn": "none",
-          "rawQuery": true,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  value,\n  key\nFROM kilowatthours\nWHERE\n  $__timeFilter(\"time\") and key not like '%Cycles'\nORDER BY 1",
-          "refId": "A",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "column"
-              }
-            ]
-          ],
-          "sql": {
-            "columns": [
-              {
-                "parameters": [],
-                "type": "function"
-              }
-            ],
-            "groupBy": [
-              {
-                "property": {
-                  "type": "string"
-                },
-                "type": "groupBy"
-              }
-            ],
-            "limit": 50
-          },
-          "table": "solar_battery_chargestatus",
-          "timeColumn": "\"time\"",
-          "timeColumnType": "timestamp",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
-        }
-      ],
-      "title": "kWh",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "postgres",
-        "uid": "emIymM7Vz"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 2,
@@ -1294,7 +1469,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 46
+        "y": 54
       },
       "id": 11,
       "options": {
@@ -1309,11 +1484,12 @@
           "sort": "none"
         }
       },
+      "pluginVersion": "11.3.0+security-01",
       "targets": [
         {
           "datasource": {
             "type": "postgres",
-            "uid": "emIymM7Vz"
+            "uid": "e490477d-e201-4dc7-b0cc-0dda3d4e64f5"
           },
           "editorMode": "code",
           "format": "time_series",
@@ -1368,7 +1544,7 @@
     {
       "datasource": {
         "type": "postgres",
-        "uid": "emIymM7Vz"
+        "uid": "e490477d-e201-4dc7-b0cc-0dda3d4e64f5"
       },
       "fieldConfig": {
         "defaults": {
@@ -1376,11 +1552,13 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 0,
             "gradientMode": "none",
@@ -1389,6 +1567,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 2,
@@ -1426,7 +1605,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 54
+        "y": 62
       },
       "id": 12,
       "options": {
@@ -1441,11 +1620,12 @@
           "sort": "none"
         }
       },
+      "pluginVersion": "11.3.0+security-01",
       "targets": [
         {
           "datasource": {
             "type": "postgres",
-            "uid": "emIymM7Vz"
+            "uid": "e490477d-e201-4dc7-b0cc-0dda3d4e64f5"
           },
           "editorMode": "code",
           "format": "time_series",
@@ -1498,22 +1678,21 @@
       "type": "timeseries"
     }
   ],
+  "preload": false,
   "refresh": "",
-  "revision": 1,
-  "schemaVersion": 38,
-  "style": "dark",
+  "schemaVersion": 40,
   "tags": [],
   "templating": {
     "list": []
   },
   "time": {
-    "from": "now-1h",
+    "from": "now-12h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Robert",
   "uid": "EFixgMmRz",
-  "version": 9,
+  "version": 10,
   "weekStart": ""
 }
