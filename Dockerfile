@@ -6,7 +6,7 @@ RUN apt update
 RUN apt -y upgrade
 #RUN apt -y install gcc cron python3 python3-pip libpq-dev python3-dev
 RUN apt -y install gcc cron libpq-dev python3-dev python3-pip
-RUN pip install pymodbus pyserial_asyncio pyserial psycopg2-binary paho-mqtt requests --break-system-packages
+RUN pip install pymodbus==3.7.4 pyserial_asyncio pyserial psycopg2-binary paho-mqtt requests --break-system-packages
 #RUN python3 -m venv ~/.local --system-site-packages
 #RUN ~/.local/bin/pip install configparser
 #RUN ~/.local/bin/pip install pymodbus
