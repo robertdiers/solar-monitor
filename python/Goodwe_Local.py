@@ -15,7 +15,7 @@ class Goodwe:
         for sensor in inverter.sensors():
             if sensor.id_ in runtime_data:
                 # print(f"{sensor.id_}: \t\t {sensor.name} = {runtime_data[sensor.id_]} {sensor.unit}")
-                if 'temperature' in sensor.id_:
+                if 'temperature' in sensor.id_ and 'battery_' not in sensor.id_:
                     TimescaleDb.writeT('goodwe_temp', runtime_data[sensor.id_])
                 if 'vbattery1' in sensor.id_:
                     TimescaleDb.writeV('goodwe_battery_volt', runtime_data[sensor.id_])
