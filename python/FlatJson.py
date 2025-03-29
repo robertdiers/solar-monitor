@@ -2,11 +2,14 @@
 
 import json
 
+
 def flatten(content):
     return flatten_json(json.loads(content))
 
+
 def flatten_json(y):
     out = {}
+
     def flatten(x, name=''):
         if type(x) is dict:
             for a in x:

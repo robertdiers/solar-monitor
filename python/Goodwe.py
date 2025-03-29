@@ -14,6 +14,7 @@ _DefaultHeaders = {
     "token": '{"version":"","client":"ios","language":"en"}',
 }
 
+
 class SemsApi:
     """Interface to the SEMS API."""
 
@@ -29,7 +30,7 @@ class SemsApi:
             self._token = self.getLoginToken(self._username, self._password)
             return self._token is not None
         except Exception as exception:
-            print ("ERROR Goodwe: ", exception)
+            print("ERROR Goodwe: ", exception)
             return False
 
     def getLoginToken(self, userName, password):
@@ -54,14 +55,15 @@ class SemsApi:
             # Process response as JSON
             jsonResponse = login_response.json()  # json.loads(login_response.text)
 
-            # Get all the details from our response, needed to make the next POST request (the one that really fetches the data)
+            # Get all the details from our response, needed to make the next POST request
+            # (the one that really fetches the data)
             # Also store the api url send with the authentication request for later use
             tokenDict = jsonResponse["data"]
             tokenDict["api"] = jsonResponse["api"]
 
             return tokenDict
         except Exception as exception:
-            print ("ERROR Goodwe: ", exception)
+            print("ERROR Goodwe: ", exception)
             return None
 
     def getData(self, powerStationId, renewToken=False, maxTokenRetries=2):
@@ -96,28 +98,29 @@ class SemsApi:
 
             return jsonResponse["data"]
         except Exception as exception:
-            print ("ERROR Goodwe: ", exception)
+            print("ERROR Goodwe: ", exception)
+
 
 def read(sems_user, sems_password, sems_stationid):
     try:
-        goodwe = SemsApi(sems_user,sems_password)
+        goodwe = SemsApi(sems_user, sems_password)
         data = goodwe.getData(sems_stationid)
-        #print(data['inverter'])
-        #print(data['inverter'][0])
-        #print(data['inverter'][0]['dict']['left'])
+        # print(data['inverter'])
+        # print(data['inverter'][0])
+        # print(data['inverter'][0]['dict']['left'])
 
         result = {}
         for tmp in data['inverter'][0]:
-            #print(tmp)
+            # print(tmp)
             if tmp not in ['dict', 'next_device', 'd', 'prev_device', 'invert_full', 'points']:
                 result[tmp] = data['inverter'][0][tmp]
-        #for d in data['inverter'][0]['dict']['left']:
-            #print(d)
-            #result[d['key']] = d['value']
-        #for d in data['inverter'][0]['dict']['right']:
-            #print(d)
-            #result[d['key']] = d['value']
+        # for d in data['inverter'][0]['dict']['left']:
+            # p rint(d)
+            # result[d['key']] = d['value']
+        # for d in data['inverter'][0]['dict']['right']:
+            # print(d)
+            # result[d['key']] = d['value']
 
         return result
     except Exception as exception:
-        print ("ERROR Goodwe: ", exception)
+        print("ERROR Goodwe: ", exception)

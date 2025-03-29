@@ -23,3 +23,7 @@ SELECT create_hypertable('kilowatthours', 'time');
 ALTER TABLE kilowatthours SET ( timescaledb.compress, timescaledb.compress_segmentby = 'time' );
 SELECT add_compression_policy('kilowatthours', INTERVAL '1 days');
 SELECT add_retention_policy('kilowatthours', INTERVAL '7 days');
+CREATE TABLE kilowatthours_day ( "day" date NOT NULL, "key" varchar NOT NULL, "value" double precision );
+CREATE UNIQUE INDEX kilowatthours_day_idx on kilowatthours_day ("day", "key");
+CREATE INDEX kilowatthours_day_idx1 ON kilowatthours_day ("day");
+CREATE INDEX kilowatthours_day_idx2 ON kilowatthours_day ("key");

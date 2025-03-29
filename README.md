@@ -5,7 +5,7 @@
 * BYD HVS storage
 * Kostal energy meter
 * iDM Heat Pump AERO SLM 6-17 with "solar input" feature
-* Solax Mini inverter
+* multiple Solax Mini inverters
 * GoodWe 5048D-ES inverter with Tasmota Sonoff POW R3
 * 48V battery block with Daly BMS (3 blocks in parallel)
 * Tasmota device with temperature sensor (Sonoff TH16 + DS18B20)
@@ -20,10 +20,11 @@
 * BYD.py - read actual values from BYD battery (TCP Socket)
 * Config.py - read config file and check for environment parameter overrides
 * Daly.py - subscribes to MQTT topic to read data
-* Goodwe.py - read actual values from Goodwe inverter (SEMS Portal API)
+* Goodwe.py - read actual values from Goodwe inverter (SEMS Portal API) - UNUSED
+* Goodwe_Local.py - read actual values from Goodwe inverter (python package)
 * IdmPump.py - read actual solar power from iDM heat pump (TCP Modbus)
 * Kostal.py - read actual values from Kostal inverter (TCP Modbus)
-* Solax.py - read actual values from Solax inverter (Solax Portal API)
+* Solax.py - read actual values from Solax inverter (Solax Portal API) - UNUSED
 * Tasmota.py - read Tasmota data (MQTT)
 * TimescaleDb.py - write to TimescaleDB
 
@@ -31,10 +32,10 @@ Hint: data input for iDM is realized with dedicated container: https://github.co
 
 ## Docker
 
-please override config values using environment variables
+please override config values using environment variables (see python/solar-monitor.ini)
 
 ```
-docker run -d --restart always --name solarmonitor -e MQTT_PASSWORD=password ghcr.io/robertdiers/solar-monitor:1.12
+docker run -d --restart always --name solarmonitor -e MQTT_PASSWORD=password ghcr.io/robertdiers/solar-monitor:1.23
 ```
 
 ### TimescaleDB (please define your own password)
