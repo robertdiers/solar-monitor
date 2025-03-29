@@ -32,9 +32,10 @@ class Goodwe:
                     TimescaleDb.writeKT('goodwe_dailyyield', runtime_data[sensor.id_])
                 if 'e_load_day' in sensor.id_:
                     TimescaleDb.writeK('goodwe_load_dailyyield', runtime_data[sensor.id_])
+                # need to be careful with in statement
                 if 'ppv1' in sensor.id_:
                     TimescaleDb.writeW('goodwe_pv_1', runtime_data[sensor.id_])
-                if 'ppv2' in sensor.id_:
+                elif 'ppv2' in sensor.id_:
                     TimescaleDb.writeW('goodwe_pv_2', runtime_data[sensor.id_])
-                if 'ppv' in sensor.id_:
+                elif 'ppv' in sensor.id_:
                     TimescaleDb.writeW('goodwe_pv', runtime_data[sensor.id_])
