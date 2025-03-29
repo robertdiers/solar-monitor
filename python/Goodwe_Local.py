@@ -25,8 +25,8 @@ class Goodwe:
                     TimescaleDb.writeP('goodwe_battery_soh', runtime_data[sensor.id_])
                 if 'battery_soc' in sensor.id_:
                     TimescaleDb.writeP('goodwe_battery_soc', runtime_data[sensor.id_])
-                if 'total_power' in sensor.id_:
-                    TimescaleDb.writeW('goodwe_output', runtime_data[sensor.id_])
+                if 'pgrid' in sensor.id_:
+                    TimescaleDb.writeW('goodwe_grid', runtime_data[sensor.id_])
                 if 'e_day' in sensor.id_:
                     TimescaleDb.writeK('goodwe_dailyyield', runtime_data[sensor.id_])
                     TimescaleDb.writeKT('goodwe_dailyyield', runtime_data[sensor.id_])
