@@ -55,94 +55,6 @@
             },
             "insertNulls": false,
             "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green"
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 0
-      },
-      "id": 19,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "11.6.0",
-      "targets": [
-        {
-          "refId": "A"
-        }
-      ],
-      "title": "Panel Title",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "grafana-postgresql-datasource",
-        "uid": "eehbfnzuycetca"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
             "lineStyle": {
               "fill": "solid"
             },
@@ -181,7 +93,7 @@
         "h": 14,
         "w": 24,
         "x": 0,
-        "y": 8
+        "y": 0
       },
       "id": 2,
       "options": {
@@ -333,7 +245,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 22
+        "y": 14
       },
       "id": 4,
       "options": {
@@ -469,7 +381,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 22
+        "y": 14
       },
       "id": 9,
       "options": {
@@ -605,7 +517,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 30
+        "y": 22
       },
       "id": 16,
       "options": {
@@ -741,7 +653,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 30
+        "y": 22
       },
       "id": 5,
       "options": {
@@ -877,7 +789,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 38
+        "y": 30
       },
       "id": 14,
       "options": {
@@ -1013,7 +925,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 38
+        "y": 30
       },
       "id": 8,
       "options": {
@@ -1148,7 +1060,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 46
+        "y": 38
       },
       "id": 17,
       "options": {
@@ -1284,7 +1196,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 46
+        "y": 38
       },
       "id": 18,
       "options": {
@@ -1449,7 +1361,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 54
+        "y": 46
       },
       "id": 10,
       "options": {
@@ -1559,9 +1471,254 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 54
+        "y": 46
       },
       "id": 20,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "11.6.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "e490477d-e201-4dc7-b0cc-0dda3d4e64f5"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  key,\n  to_char(\"day\",'YYYY') || '-' || to_char(\"day\",'MM') || '-' || to_char(\"day\",'DD') AS \"day\",\n  \"value\" as \"value\"\nFROM kilowatthours_day\nORDER BY 2 desc, 1",
+          "refId": "G",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          },
+          "table": "solar_battery_chargestatus",
+          "timeColumn": "\"time\"",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "Ertrag Tag",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "eehbfnzuycetca"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 2,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 54
+      },
+      "id": 11,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.6.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "e490477d-e201-4dc7-b0cc-0dda3d4e64f5"
+          },
+          "editorMode": "code",
+          "format": "time_series",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  value,\n  key\nFROM voltages\nWHERE\n  $__timeFilter(\"time\") AND\n  key in ('Daly2_CellV_CellV_1','Daly2_CellV_CellV_2','Daly2_CellV_CellV_3','Daly2_CellV_CellV_4','Daly2_CellV_CellV_5','Daly2_CellV_CellV_6','Daly2_CellV_CellV_7','Daly2_CellV_CellV_8','Daly2_CellV_CellV_9','Daly2_CellV_CellV_10','Daly2_CellV_CellV_11','Daly2_CellV_CellV_12','Daly2_CellV_CellV_13','Daly2_CellV_CellV_14','Daly2_CellV_CellV_15','Daly2_CellV_CellV_16')\nORDER BY 1",
+          "refId": "D",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          },
+          "table": "solar_kostal_batterypercent",
+          "timeColumn": "\"time\"",
+          "timeColumnType": "timestamptz",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "Block 2",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "eehbfnzuycetca"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 54
+      },
+      "id": 22,
       "options": {
         "cellHeight": "sm",
         "footer": {
@@ -1696,7 +1853,7 @@
         "x": 0,
         "y": 62
       },
-      "id": 11,
+      "id": 12,
       "options": {
         "legend": {
           "calcs": [],
@@ -1723,7 +1880,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  value,\n  key\nFROM voltages\nWHERE\n  $__timeFilter(\"time\") AND\n  key in ('Daly2_CellV_CellV_1','Daly2_CellV_CellV_2','Daly2_CellV_CellV_3','Daly2_CellV_CellV_4','Daly2_CellV_CellV_5','Daly2_CellV_CellV_6','Daly2_CellV_CellV_7','Daly2_CellV_CellV_8','Daly2_CellV_CellV_9','Daly2_CellV_CellV_10','Daly2_CellV_CellV_11','Daly2_CellV_CellV_12','Daly2_CellV_CellV_13','Daly2_CellV_CellV_14','Daly2_CellV_CellV_15','Daly2_CellV_CellV_16')\nORDER BY 1",
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  value,\n  key\nFROM voltages\nWHERE\n  $__timeFilter(\"time\") AND\n  key in ('Daly3_CellV_CellV_1','Daly3_CellV_CellV_2','Daly3_CellV_CellV_3','Daly3_CellV_CellV_4','Daly3_CellV_CellV_5','Daly3_CellV_CellV_6','Daly3_CellV_CellV_7','Daly3_CellV_CellV_8','Daly3_CellV_CellV_9','Daly3_CellV_CellV_10','Daly3_CellV_CellV_11','Daly3_CellV_CellV_12','Daly3_CellV_CellV_13','Daly3_CellV_CellV_14','Daly3_CellV_CellV_15','Daly3_CellV_CellV_16')\nORDER BY 1",
           "refId": "D",
           "select": [
             [
@@ -1764,7 +1921,7 @@
           ]
         }
       ],
-      "title": "Block 2",
+      "title": "Block 3",
       "type": "timeseries"
     },
     {
@@ -1875,142 +2032,6 @@
       ],
       "title": "Ertrag Jahr",
       "type": "table"
-    },
-    {
-      "datasource": {
-        "type": "grafana-postgresql-datasource",
-        "uid": "eehbfnzuycetca"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 2,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": true,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green"
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 70
-      },
-      "id": 12,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "right",
-          "showLegend": true
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "11.6.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "postgres",
-            "uid": "e490477d-e201-4dc7-b0cc-0dda3d4e64f5"
-          },
-          "editorMode": "code",
-          "format": "time_series",
-          "group": [],
-          "hide": false,
-          "metricColumn": "none",
-          "rawQuery": true,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  value,\n  key\nFROM voltages\nWHERE\n  $__timeFilter(\"time\") AND\n  key in ('Daly3_CellV_CellV_1','Daly3_CellV_CellV_2','Daly3_CellV_CellV_3','Daly3_CellV_CellV_4','Daly3_CellV_CellV_5','Daly3_CellV_CellV_6','Daly3_CellV_CellV_7','Daly3_CellV_CellV_8','Daly3_CellV_CellV_9','Daly3_CellV_CellV_10','Daly3_CellV_CellV_11','Daly3_CellV_CellV_12','Daly3_CellV_CellV_13','Daly3_CellV_CellV_14','Daly3_CellV_CellV_15','Daly3_CellV_CellV_16')\nORDER BY 1",
-          "refId": "D",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "column"
-              }
-            ]
-          ],
-          "sql": {
-            "columns": [
-              {
-                "parameters": [],
-                "type": "function"
-              }
-            ],
-            "groupBy": [
-              {
-                "property": {
-                  "type": "string"
-                },
-                "type": "groupBy"
-              }
-            ],
-            "limit": 50
-          },
-          "table": "solar_kostal_batterypercent",
-          "timeColumn": "\"time\"",
-          "timeColumnType": "timestamptz",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
-        }
-      ],
-      "title": "Block 3",
-      "type": "timeseries"
     }
   ],
   "preload": false,
@@ -2028,5 +2049,5 @@
   "timezone": "",
   "title": "Robert",
   "uid": "EFixgMmRz",
-  "version": 5
+  "version": 6
 }
