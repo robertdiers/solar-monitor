@@ -29,8 +29,8 @@
   "panels": [
     {
       "datasource": {
-        "type": "postgres",
-        "uid": "e490477d-e201-4dc7-b0cc-0dda3d4e64f5"
+        "type": "grafana-postgresql-datasource",
+        "uid": "eehbfnzuycetca"
       },
       "fieldConfig": {
         "defaults": {
@@ -78,8 +78,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -105,11 +104,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "11.3.0+security-01",
+      "pluginVersion": "11.6.0",
       "targets": [
         {
           "datasource": {
@@ -184,8 +184,8 @@
     },
     {
       "datasource": {
-        "type": "postgres",
-        "uid": "e490477d-e201-4dc7-b0cc-0dda3d4e64f5"
+        "type": "grafana-postgresql-datasource",
+        "uid": "eehbfnzuycetca"
       },
       "fieldConfig": {
         "defaults": {
@@ -230,8 +230,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -257,11 +256,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "11.3.0+security-01",
+      "pluginVersion": "11.6.0",
       "targets": [
         {
           "datasource": {
@@ -320,8 +320,8 @@
     },
     {
       "datasource": {
-        "type": "postgres",
-        "uid": "e490477d-e201-4dc7-b0cc-0dda3d4e64f5"
+        "type": "grafana-postgresql-datasource",
+        "uid": "eehbfnzuycetca"
       },
       "fieldConfig": {
         "defaults": {
@@ -366,8 +366,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -393,11 +392,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "11.3.0+security-01",
+      "pluginVersion": "11.6.0",
       "targets": [
         {
           "datasource": {
@@ -410,7 +410,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  value,\n  key\nFROM percentages\nWHERE\n  $__timeFilter(\"time\") \nAND SUBSTRING(key, 1, 5) != 'xmrig'\nORDER BY 1",
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  value,\n  key\nFROM percentages\nWHERE\n  $__timeFilter(\"time\") \nAND SUBSTRING(key, 1, 5) != 'xmrig'\nAND SUBSTRING(key, 1, 4) != 'chia'\nORDER BY 1",
           "refId": "G",
           "select": [
             [
@@ -456,8 +456,8 @@
     },
     {
       "datasource": {
-        "type": "postgres",
-        "uid": "e490477d-e201-4dc7-b0cc-0dda3d4e64f5"
+        "type": "grafana-postgresql-datasource",
+        "uid": "eehbfnzuycetca"
       },
       "fieldConfig": {
         "defaults": {
@@ -502,8 +502,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -529,11 +528,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "11.3.0+security-01",
+      "pluginVersion": "11.6.0",
       "targets": [
         {
           "datasource": {
@@ -592,8 +592,8 @@
     },
     {
       "datasource": {
-        "type": "postgres",
-        "uid": "e490477d-e201-4dc7-b0cc-0dda3d4e64f5"
+        "type": "grafana-postgresql-datasource",
+        "uid": "eehbfnzuycetca"
       },
       "fieldConfig": {
         "defaults": {
@@ -638,8 +638,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -665,11 +664,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "11.3.0+security-01",
+      "pluginVersion": "11.6.0",
       "targets": [
         {
           "datasource": {
@@ -728,8 +728,8 @@
     },
     {
       "datasource": {
-        "type": "postgres",
-        "uid": "e490477d-e201-4dc7-b0cc-0dda3d4e64f5"
+        "type": "grafana-postgresql-datasource",
+        "uid": "eehbfnzuycetca"
       },
       "fieldConfig": {
         "defaults": {
@@ -774,8 +774,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -801,11 +800,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "11.3.0+security-01",
+      "pluginVersion": "11.6.0",
       "targets": [
         {
           "datasource": {
@@ -864,8 +864,8 @@
     },
     {
       "datasource": {
-        "type": "postgres",
-        "uid": "e490477d-e201-4dc7-b0cc-0dda3d4e64f5"
+        "type": "grafana-postgresql-datasource",
+        "uid": "eehbfnzuycetca"
       },
       "fieldConfig": {
         "defaults": {
@@ -910,8 +910,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -937,11 +936,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "11.3.0+security-01",
+      "pluginVersion": "11.6.0",
       "targets": [
         {
           "datasource": {
@@ -999,8 +999,8 @@
     },
     {
       "datasource": {
-        "type": "postgres",
-        "uid": "e490477d-e201-4dc7-b0cc-0dda3d4e64f5"
+        "type": "grafana-postgresql-datasource",
+        "uid": "eehbfnzuycetca"
       },
       "fieldConfig": {
         "defaults": {
@@ -1045,8 +1045,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1072,11 +1071,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "11.3.0+security-01",
+      "pluginVersion": "11.6.0",
       "targets": [
         {
           "datasource": {
@@ -1134,8 +1134,8 @@
     },
     {
       "datasource": {
-        "type": "postgres",
-        "uid": "e490477d-e201-4dc7-b0cc-0dda3d4e64f5"
+        "type": "grafana-postgresql-datasource",
+        "uid": "eehbfnzuycetca"
       },
       "fieldConfig": {
         "defaults": {
@@ -1181,8 +1181,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1208,11 +1207,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "11.3.0+security-01",
+      "pluginVersion": "11.6.0",
       "targets": [
         {
           "datasource": {
@@ -1264,6 +1264,35 @@
               "type": "macro"
             }
           ]
+        },
+        {
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "eehbfnzuycetca"
+          },
+          "editorMode": "code",
+          "format": "time_series",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  value,\n  key\nFROM percentages\nWHERE\n  $__timeFilter(\"time\") \nAND SUBSTRING(key, 1, 4) = 'chia'\nORDER BY 1",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
         }
       ],
       "title": "Xmrig Percentage",
@@ -1271,8 +1300,8 @@
     },
     {
       "datasource": {
-        "type": "postgres",
-        "uid": "e490477d-e201-4dc7-b0cc-0dda3d4e64f5"
+        "type": "grafana-postgresql-datasource",
+        "uid": "eehbfnzuycetca"
       },
       "fieldConfig": {
         "defaults": {
@@ -1317,8 +1346,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1344,11 +1372,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "11.3.0+security-01",
+      "pluginVersion": "11.6.0",
       "targets": [
         {
           "datasource": {
@@ -1407,8 +1436,8 @@
     },
     {
       "datasource": {
-        "type": "postgres",
-        "uid": "e490477d-e201-4dc7-b0cc-0dda3d4e64f5"
+        "type": "grafana-postgresql-datasource",
+        "uid": "eehbfnzuycetca"
       },
       "fieldConfig": {
         "defaults": {
@@ -1453,8 +1482,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1480,11 +1508,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "11.3.0+security-01",
+      "pluginVersion": "11.6.0",
       "targets": [
         {
           "datasource": {
@@ -1543,8 +1572,8 @@
     },
     {
       "datasource": {
-        "type": "postgres",
-        "uid": "e490477d-e201-4dc7-b0cc-0dda3d4e64f5"
+        "type": "grafana-postgresql-datasource",
+        "uid": "eehbfnzuycetca"
       },
       "fieldConfig": {
         "defaults": {
@@ -1589,8 +1618,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1616,11 +1644,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "11.3.0+security-01",
+      "pluginVersion": "11.6.0",
       "targets": [
         {
           "datasource": {
@@ -1680,7 +1709,7 @@
   ],
   "preload": false,
   "refresh": "",
-  "schemaVersion": 40,
+  "schemaVersion": 41,
   "tags": [],
   "templating": {
     "list": []
@@ -1693,6 +1722,5 @@
   "timezone": "",
   "title": "Robert",
   "uid": "EFixgMmRz",
-  "version": 10,
-  "weekStart": ""
+  "version": 3
 }
