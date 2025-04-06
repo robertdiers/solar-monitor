@@ -30,6 +30,14 @@ def read():
         values["daly1_mqtt_name"] = config['MqttTopicSection']['daly1_mqtt_name']
         values["daly2_mqtt_name"] = config['MqttTopicSection']['daly2_mqtt_name']
         values["daly3_mqtt_name"] = config['MqttTopicSection']['daly3_mqtt_name']
+        values["shelly1_mqtt_name"] = config['MqttTopicSection']['shelly1_mqtt_name']
+        values["shelly2_mqtt_name"] = config['MqttTopicSection']['shelly2_mqtt_name']
+        values["shelly3_mqtt_name"] = config['MqttTopicSection']['shelly3_mqtt_name']
+        values["shelly4_mqtt_name"] = config['MqttTopicSection']['shelly4_mqtt_name']
+        values["shelly5_mqtt_name"] = config['MqttTopicSection']['shelly5_mqtt_name']
+        values["shelly6_mqtt_name"] = config['MqttTopicSection']['shelly6_mqtt_name']
+        values["shelly7_mqtt_name"] = config['MqttTopicSection']['shelly7_mqtt_name']
+        values["shelly8_mqtt_name"] = config['MqttTopicSection']['shelly8_mqtt_name']
         if os.getenv('TEMP_MQTT_NAME', 'None') != 'None':
             values["temp_mqtt_name"] = os.getenv('TEMP_MQTT_NAME')
             # print ("using env: TEMP_MQTT_NAME")
@@ -45,6 +53,30 @@ def read():
         if os.getenv('DALY3_MQTT_NAME', 'None') != 'None':
             values["daly3_mqtt_name"] = os.getenv('DALY3_MQTT_NAME')
             # print ("using env: DALY3_MQTT_NAME")
+        if os.getenv('SHELLY1_MQTT_NAME', 'None') != 'None':
+            values["shelly1_mqtt_name"] = os.getenv('SHELLY1_MQTT_NAME')
+            # print ("using env: SHELLY1_MQTT_NAME")
+        if os.getenv('SHELLY2_MQTT_NAME', 'None') != 'None':
+            values["shelly2_mqtt_name"] = os.getenv('SHELLY2_MQTT_NAME')
+            # print ("using env: SHELLY2_MQTT_NAME")
+        if os.getenv('SHELLY3_MQTT_NAME', 'None') != 'None':
+            values["shelly3_mqtt_name"] = os.getenv('SHELLY3_MQTT_NAME')
+            # print ("using env: SHELLY3_MQTT_NAME")
+        if os.getenv('SHELLY4_MQTT_NAME', 'None') != 'None':
+            values["shelly4_mqtt_name"] = os.getenv('SHELLY4_MQTT_NAME')
+            # print ("using env: SHELLY4_MQTT_NAME")
+        if os.getenv('SHELLY5_MQTT_NAME', 'None') != 'None':
+            values["shelly5_mqtt_name"] = os.getenv('SHELLY5_MQTT_NAME')
+            # print ("using env: SHELL5_MQTT_NAME")
+        if os.getenv('SHELLY6_MQTT_NAME', 'None') != 'None':
+            values["shelly6_mqtt_name"] = os.getenv('SHELLY6_MQTT_NAME')
+            # print ("using env: SHELLY6_MQTT_NAME")
+        if os.getenv('SHELLY7_MQTT_NAME', 'None') != 'None':
+            values["shelly7_mqtt_name"] = os.getenv('SHELLY7_MQTT_NAME')
+            # print ("using env: SHELLY7_MQTT_NAME")
+        if os.getenv('SHELLY8_MQTT_NAME', 'None') != 'None':
+            values["shelly8_mqtt_name"] = os.getenv('SHELLY8_MQTT_NAME')
+            # print ("using env: SHELLY8_MQTT_NAME")
 
         values["timescaledb_ip"] = config['DatabaseSection']['timescaledb_ip']
         values["timescaledb_username"] = config['DatabaseSection']['timescaledb_username']

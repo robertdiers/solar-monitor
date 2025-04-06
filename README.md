@@ -5,7 +5,7 @@
 * BYD HVS storage
 * Kostal energy meter
 * iDM Heat Pump AERO SLM 6-17 with "solar input" feature
-* multiple Solax Mini inverters
+* multiple Solax Mini inverters (power metered by Shelly PM Mini G3)
 * GoodWe 5048D-ES inverter with Tasmota Sonoff POW R3
 * 48V battery block with Daly BMS (3 blocks in parallel)
 * Tasmota device with temperature sensor (Sonoff TH16 + DS18B20)
@@ -14,6 +14,7 @@
 ## main Python scripts (startup and cron triggered):
 * init.py - initializes TimescaleDB tables as they are removed when device restarts
 * daly-subscribe.py - subscribes to DALY MQTT output and store to database (https://github.com/softwarecrash/DALY-BMS-to-MQTT)
+* shelly-subscribe.py - subscribes to Shelly MQTT output (SolaX inverters)
 * solar-monitor.py - collect metrics and store to database
 
 ## additional Python modules
@@ -24,6 +25,7 @@
 * Goodwe_Local.py - read actual values from Goodwe inverter (python package)
 * IdmPump.py - read actual solar power from iDM heat pump (TCP Modbus)
 * Kostal.py - read actual values from Kostal inverter (TCP Modbus)
+* Shelly.py - subscribes to MQTT topic to read data
 * Solax.py - read actual values from Solax inverter (Solax Portal API) - UNUSED
 * Tasmota.py - read Tasmota data (MQTT)
 * TimescaleDb.py - write to TimescaleDB

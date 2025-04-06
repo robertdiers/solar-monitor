@@ -41,11 +41,12 @@ def write(table, key, value):
         cur.execute(sql, (key, value,))
         # commit the changes to the database
         conn.commit()
-        # close the communication with the PostgreSQL
-        cur.close()
     except Exception as ex:
         print("ERROR: ", ex)
         cur.execute("rollback")
+    finally:
+        # close the communication with the PostgreSQL
+        cur.close()
 
 
 # write kilowatthours_total to TimescaleDB
@@ -61,11 +62,31 @@ def writeKT(key, value):
         cur.execute(sql, (key, value, value))
         # commit the changes to the database
         conn.commit()
-        # close the communication with the PostgreSQL
-        cur.close()
     except Exception as ex:
         print("ERROR: ", ex)
         cur.execute("rollback")
+    finally:
+        # close the communication with the PostgreSQL
+        cur.close()
+
+
+# write kilowatthours_total to TimescaleDB
+def readKTYesterday(key):
+    try:
+        global conn
+        # create a cursor
+        cur = conn.cursor()
+        # execute a statement
+        sql = 'select coalesce((select value from kilowatthours_day where day = (CURRENT_DATE - 1) and key = %s), 0)'
+        cur.execute(sql, (key,))
+        yesterday = cur.fetchmany(1)
+        kwh = yesterday[0][0]
+        return kwh
+    except Exception as ex:
+        print("ERROR: ", ex)
+    finally:
+        # close the communication with the PostgreSQL
+        cur.close()
 
 
 # exec in db
@@ -78,11 +99,12 @@ def exec(sql):
         cur.execute(sql)
         # commit the changes to the database
         conn.commit()
-        # close the communication with the PostgreSQL
-        cur.close()
     except Exception as ex:
         print("ERROR: ", ex)
         cur.execute("rollback")
+    finally:
+        # close the communication with the PostgreSQL
+        cur.close()
 
 
 def connect(timescaledb_ip, timescaledb_username, timescaledb_password):

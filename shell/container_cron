@@ -1,2 +1,3 @@
 * * * * * . $HOME/.profile; /app/solar-monitor.sh > /proc/1/fd/1 2>/proc/1/fd/2
 */10 * * * * . $HOME/.profile; /app/daly-subscribe.sh > /proc/1/fd/1 2>/proc/1/fd/2
+*/10 * * * * . $HOME/.profile; /app/shelly-subscribe.sh > /proc/1/fd/1 2>/proc/1/fd/2
