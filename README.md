@@ -37,10 +37,24 @@ Hint: data input for iDM is realized with dedicated container: https://github.co
 please override config values using environment variables (see python/solar-monitor.ini)
 
 ```
-docker run -d --restart always --name solarmonitor -e MQTT_PASSWORD=password ghcr.io/robertdiers/solar-monitor:1.23
+services:
+    solarmonitor:
+        image: ghcr.io/robertdiers/solar-monitor:1.25
+        container_name: solarmonitor
+        restart: always
+        environment:
+        - MQTT_BROKER=brokerip
+        - MQTT_PASSWORD=brokerpassword
+        - TIMESCALEDB_IP=databaseip
+        - TIMESCALEDB_PASSWORD=databasepassword
+        - BYD_IP=bydip
+        - IDM_IP=idmip
+        - INVERTER_IP=kostalip
+        - GOODWE_IP=goodweip
 ```
 
 ### TimescaleDB (please define your own password)
+
 Using tmpfs to store data in memory, disc doesn't have to store it:
 
 ```
@@ -58,6 +72,7 @@ services:
 ```
 
 ### Grafana
+
 Dashboard JSON is placed in this repo:
 
 ```
@@ -73,6 +88,7 @@ services:
 ```
 
 ### bunkerm (MQTT broker, please define your client user and password using GUI)
+
 ```
 volumes:
   mosquitto_data:
