@@ -87,9 +87,21 @@ services:
         - ${PWD}/grafanadata:/var/lib/grafana
 ```
 
-### mosquitto (MQTT broker, please define your client user and password using GUI)
+### Mosquitto (MQTT broker, please define your config and password file once)
 
 https://be-jo.net/2024/01/mqtt-broker-mosquitto-als-docker-container-installieren/
+
+mosquitto.conf
+
+```
+persistence false
+log_dest stdout
+password_file /mosquitto/config/mosquitto.passwd
+allow_anonymous false
+listener 1883
+```
+
+container:
 
 ```
 services:
@@ -98,8 +110,14 @@ services:
       container_name: mosquitto
       restart: always
       volumes:
-        - yourconfigandpasswordfile:/mosquitto/config
+        - folderwithyourconfigandpasswordfile:/mosquitto/config
       ports:
         - 1883:1883
         - 9001:9001
+```
+
+after running the container you can create your own user and password using this command - than restart the container:
+
+```
+mosquitto_passwd -c /mosquitto/config/mosquitto.passwd youruser
 ```
