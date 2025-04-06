@@ -1499,7 +1499,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  key,\n  to_char(\"day\",'YYYY') || '-' || to_char(\"day\",'MM') || '-' || to_char(\"day\",'DD') AS \"day\",\n  \"value\" as \"value\"\nFROM kilowatthours_day\nORDER BY 2 desc, 1",
+          "rawSql": "SELECT\n  *\nFROM public.v_kwh_day",
           "refId": "G",
           "select": [
             [
@@ -1744,7 +1744,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  key,\n  EXTRACT(year FROM \"day\") AS \"year\",\n  EXTRACT(month FROM \"day\") AS \"month\",\n  sum(value) as value\nFROM kilowatthours_day\ngroup by key, EXTRACT(year FROM \"day\"), EXTRACT(month FROM \"day\")\nORDER BY 2 desc, 3 desc, 1",
+          "rawSql": "SELECT\n  *\nFROM public.v_kwh_month",
           "refId": "G",
           "select": [
             [
@@ -1989,7 +1989,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  key,\n  EXTRACT(year FROM \"day\") AS \"year\",\n  sum(value) as value\nFROM kilowatthours_day\ngroup by key, EXTRACT(year FROM \"day\")\nORDER BY 2 desc, 1",
+          "rawSql": "SELECT\n  *\nFROM public.v_kwh_year",
           "refId": "G",
           "select": [
             [
@@ -2049,5 +2049,5 @@
   "timezone": "",
   "title": "Robert",
   "uid": "EFixgMmRz",
-  "version": 6
+  "version": 9
 }
