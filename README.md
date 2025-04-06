@@ -41,21 +41,56 @@ docker run -d --restart always --name solarmonitor -e MQTT_PASSWORD=password ghc
 ```
 
 ### TimescaleDB (please define your own password)
-Using tmpfs to store data in memory, sd card doesn't have to store it:
+Using tmpfs to store data in memory, disc doesn't have to store it:
 
 ```
-docker run -d --restart always --name timescaledb -p 5432:5432 -e POSTGRES_PASSWORD=password --mount type=tmpfs,destination=/var/lib/postgresql/data timescale/timescaledb:latest-pg14
+services:
+  timescaledb:
+    image: docker.io/timescale/timescaledb:latest-pg14
+    container_name: timescaledb
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=yourpassword 
+    tmpfs:
+      - /var/lib/postgresql/data
 ```
 
 ### Grafana
 Dashboard JSON is placed in this repo:
 
 ```
-docker run -d --name grafana --volume "$PWD/grafanadata:/var/lib/grafana" -p 3000:3000 --restart always grafana/grafana:latest
+services:
+    grafana:
+        image: docker.io/grafana/grafana:latest
+        container_name: grafana
+        restart: always
+        ports:
+        - 3000:3000
+        volumes:
+        - ${PWD}/grafanadata:/var/lib/grafana
 ```
 
-### EMQX (MQTT broker, please define your own password)
+### bunkerm (MQTT broker, please define your client user and password using GUI)
 ```
-docker run -d --name emqx -p 18083:18083 -p 1883:1883 -v $PWD/emqxdata:/opt/emqx/data --restart always emqx:latest
+volumes:
+  mosquitto_data:
+  mosquitto_conf:
+  bunkerm_data:
+services:
+    bunkerm:
+        image: bunkeriot/bunkerm:latest
+        container_name: bunkerm
+        restart: always
+        environment:
+        - HOST_ADDRESS=yourserveripaddress
+        volumes:
+        - mosquitto_data:/var/lib/mosquitto
+        - mosquitto_conf:/etc/mosquitto
+        - bunkerm_data:/data
+        ports:
+        - 2000:2000
+        - 1883:1900
 ```
 
