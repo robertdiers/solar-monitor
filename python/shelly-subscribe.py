@@ -55,7 +55,10 @@ def writedb(name, json):
                     TimescaleDb.writeW(name, value)
                 if attribute in 'aenergy_total':
                     key = name + '_dailyyield'
+                    # wh tu kwh
+                    value = value / 1000
                     # print(attribute+" aenergy: "+str(value))
+                    TimescaleDb.writeK(key, value)
                     yesterday_kwh = TimescaleDb.readKTYesterday(key)
                     # print(yesterday_kwh)
                     today_kwh = value - yesterday_kwh
