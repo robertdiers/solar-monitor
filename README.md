@@ -87,26 +87,19 @@ services:
         - ${PWD}/grafanadata:/var/lib/grafana
 ```
 
-### bunkerm (MQTT broker, please define your client user and password using GUI)
+### mosquitto (MQTT broker, please define your client user and password using GUI)
+
+https://be-jo.net/2024/01/mqtt-broker-mosquitto-als-docker-container-installieren/
 
 ```
-volumes:
-  mosquitto_data:
-  mosquitto_conf:
-  bunkerm_data:
 services:
-    bunkerm:
-        image: bunkeriot/bunkerm:latest
-        container_name: bunkerm
-        restart: always
-        environment:
-        - HOST_ADDRESS=yourserveripaddress
-        volumes:
-        - mosquitto_data:/var/lib/mosquitto
-        - mosquitto_conf:/etc/mosquitto
-        - bunkerm_data:/data
-        ports:
-        - 2000:2000
-        - 1883:1900
+  mosquitto:
+      image: docker.io/eclipse-mosquitto:latest
+      container_name: mosquitto
+      restart: always
+      volumes:
+        - yourconfigandpasswordfile:/mosquitto/config
+      ports:
+        - 1883:1883
+        - 9001:9001
 ```
-
