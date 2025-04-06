@@ -54,7 +54,7 @@ def writedb(name, json):
                     # print(attribute+" apower: "+str(value))
                     TimescaleDb.writeW(name, value)
                 if attribute in 'aenergy_total':
-                    key = name + '_dailyyield'
+                    key = name
                     # wh to kwh
                     value = value / 1000
                     # print(attribute+" aenergy: "+str(value))

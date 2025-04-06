@@ -38,9 +38,9 @@ def tasmota_pm(mqtt_name, alias):
         if math.isnan(result["StatusSNS_ENERGY_Today"]):
             print("StatusSNS_ENERGY_Today nan: "+str(result["StatusSNS_ENERGY_Today"]))
         else:
-            TimescaleDb.writeK(alias + '_dailyyield', result["StatusSNS_ENERGY_Today"])
+            TimescaleDb.writeK(alias, result["StatusSNS_ENERGY_Today"])
             # write to total table
-            TimescaleDb.writeKT(alias + '_dailyyield', result["StatusSNS_ENERGY_Today"])
+            TimescaleDb.writeKT(alias, result["StatusSNS_ENERGY_Today"])
     except Exception as ex:
         print("ERROR tasmota " + mqtt_name + ": ", ex)
 
@@ -85,10 +85,10 @@ def kostal(inverter_ip, inverter_port):
         TimescaleDb.writeW('kostal_generation', kostalvalues["generation"])
         TimescaleDb.writeW('kostal_powertogrid', kostalvalues["powerToGrid"])
         TimescaleDb.writeW('kostal_surplus', kostalvalues["surplus"])
-        TimescaleDb.writeK('kostal_dailyyield', kostalvalues["dailyyield"])
+        TimescaleDb.writeK('kostal', kostalvalues["dailyyield"])
 
         # update latest daily yield
-        TimescaleDb.writeKT('kostal_dailyyield', kostalvalues["dailyyield"])
+        TimescaleDb.writeKT('kostal', kostalvalues["dailyyield"])
 
     except Exception as ex:
         print("ERROR kostal: ", ex)
