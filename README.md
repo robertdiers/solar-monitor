@@ -32,7 +32,7 @@
 
 Hint: data input for iDM is realized with dedicated container: https://github.com/robertdiers/kostal_idmpump
 
-## Docker
+## Docker Compose
 
 please override config values using environment variables (see python/solar-monitor.ini)
 
