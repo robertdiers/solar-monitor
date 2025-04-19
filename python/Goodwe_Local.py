@@ -18,13 +18,13 @@ class Goodwe:
                 if 'temperature' in sensor.id_ and 'battery_' not in sensor.id_:
                     TimescaleDb.writeT('goodwe_temp', runtime_data[sensor.id_])
                 if 'vbattery1' in sensor.id_:
-                    TimescaleDb.writeV('goodwe_battery_volt', runtime_data[sensor.id_])
+                    TimescaleDb.writeV('goodwe_battery_volt', float(runtime_data[sensor.id_]))
                 if 'pbattery1' in sensor.id_:
                     TimescaleDb.writeW('goodwe_battery_watt', runtime_data[sensor.id_])
                 if 'battery_soh' in sensor.id_:
-                    TimescaleDb.writeP('goodwe_battery_soh', runtime_data[sensor.id_] / 100)
+                    TimescaleDb.writeP('goodwe_battery_soh', float(runtime_data[sensor.id_]) / 100.0)
                 if 'battery_soc' in sensor.id_:
-                    TimescaleDb.writeP('goodwe_battery_soc', runtime_data[sensor.id_] / 100)
+                    TimescaleDb.writeP('goodwe_battery_soc', float(runtime_data[sensor.id_]) / 100.0)
                 if 'pgrid' in sensor.id_:
                     TimescaleDb.writeW('goodwe_grid', runtime_data[sensor.id_])
                 if 'e_day' in sensor.id_:
