@@ -10,8 +10,8 @@ config = configparser.ConfigParser()
 def read():
     try:
         # read config
-        # config.read('solar-monitor-rdiers.ini')
-        config.read('solar-monitor.ini')
+        config.read('solar-monitor-rdiers.ini')
+        # config.read('solar-monitor.ini')
 
         values = {}
 
