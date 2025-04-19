@@ -39,7 +39,7 @@ please override config values using environment variables (see python/solar-moni
 ```
 services:
     solarmonitor:
-        image: ghcr.io/robertdiers/solar-monitor:1.25
+        image: ghcr.io/robertdiers/solar-monitor:latest
         container_name: solarmonitor
         restart: always
         environment:
