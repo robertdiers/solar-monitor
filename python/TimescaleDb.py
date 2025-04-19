@@ -37,7 +37,7 @@ def write(table, key, value):
         # create a cursor
         cur = conn.cursor()
         # execute a statement
-        sql = 'insert into '+table+' (time, key, value) values (now(), %s, %s)'
+        sql = 'insert into ' + table + ' (time, key, value) values (now(), %s, %s)'
         cur.execute(sql, (key, value,))
         # commit the changes to the database
         conn.commit()
@@ -51,13 +51,23 @@ def write(table, key, value):
 
 # write kilowatthours_total to TimescaleDB
 def writeKT(key, value):
+    write_day('kilowatthours_day', key, value)
+
+
+# write kilowatthours_counter to TimescaleDB
+def writeKTC(key, value):
+    write_day('kilowatthours_day_counter', key, value)
+
+
+# write data to TimescaleDB
+def write_day(table, key, value):
     try:
         global conn
         # create a cursor
         cur = conn.cursor()
         # execute a statement
-        # sql = 'update kilowatthours_day set value = %s where day = CURRENT_DATE and key = %s'
-        sql = 'INSERT INTO kilowatthours_day (day, key, value) VALUES (CURRENT_DATE, %s, %s)'
+        # sql = 'update '+table+' set value = %s where day = CURRENT_DATE and key = %s'
+        sql = 'INSERT INTO ' + table + ' (day, key, value) VALUES (CURRENT_DATE, %s, %s)'
         sql += ' ON CONFLICT (day, key) DO UPDATE SET value = %s;'
         cur.execute(sql, (key, value, value))
         # commit the changes to the database
@@ -70,14 +80,24 @@ def writeKT(key, value):
         cur.close()
 
 
-# write kilowatthours_total to TimescaleDB
+# read yesterday kilowatthours_total from TimescaleDB
 def readKTYesterday(key):
+    return read_yesterday('kilowatthours_day', key)
+
+
+# read yesterday kilowatthours_total from TimescaleDB
+def readKTCYesterday(key):
+    return read_yesterday('kilowatthours_day_counter', key)
+
+
+# read yesterday kilowatthours_total from TimescaleDB
+def read_yesterday(table, key):
     try:
         global conn
         # create a cursor
         cur = conn.cursor()
         # execute a statement
-        sql = 'select coalesce((select value from kilowatthours_day where day = (CURRENT_DATE - 1) and key = %s), 0)'
+        sql = 'select coalesce((select value from ' + table + ' where day = (CURRENT_DATE - 1) and key = %s), 0)'
         cur.execute(sql, (key,))
         yesterday = cur.fetchmany(1)
         kwh = yesterday[0][0]

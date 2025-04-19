@@ -54,15 +54,24 @@ def writedb(name, json):
                     # print(attribute+" apower: "+str(value))
                     TimescaleDb.writeW(name, value)
                 if attribute in 'aenergy_total':
+                    # this is a kind of a counter, not a per-day-value
+                    # we need to fill a counter table and substract yesterdays value
                     key = name
                     # wh to kwh
-                    value = value / 1000
-                    # print(attribute+" aenergy: "+str(value))
-                    TimescaleDb.writeK(key, value)
-                    yesterday_kwh = TimescaleDb.readKTYesterday(key)
-                    # print(yesterday_kwh)
-                    today_kwh = value - yesterday_kwh
-                    # print(attribute+" today_kwh: "+str(today_kwh))
+                    today_counter = value / 1000
+                    # print(attribute+" aenergy: "+str(today_counter))
+                    # 1. update counter table (will update the counter for 'today')
+                    TimescaleDb.writeKTC(key, today_counter)
+                    # 2. get counter value from yesterday
+                    yesterday_counter = TimescaleDb.readKTCYesterday(key)
+                    # 3. check if this is a resetted counter
+                    if yesterday_counter > today_counter:
+                        print('detected resetted counter - ignoring yesterdays kwh')
+                        yesterday_counter = 0
+                    # 4. calculate the diff
+                    today_kwh = today_counter - yesterday_counter
+                    # 5. store todays value
+                    TimescaleDb.writeK(key, today_kwh)
                     TimescaleDb.writeKT(key, today_kwh)
 
 
