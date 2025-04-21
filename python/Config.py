@@ -26,7 +26,7 @@ def read():
             # print ("using env: BYD_PORT")
 
         values["temp_mqtt_name"] = config['MqttTopicSection']['temp_mqtt_name']
-        values["goodwe_mqtt_name"] = config['MqttTopicSection']['goodwe_mqtt_name']
+        # values["goodwe_mqtt_name"] = config['MqttTopicSection']['goodwe_mqtt_name']
         values["daly1_mqtt_name"] = config['MqttTopicSection']['daly1_mqtt_name']
         values["daly2_mqtt_name"] = config['MqttTopicSection']['daly2_mqtt_name']
         values["daly3_mqtt_name"] = config['MqttTopicSection']['daly3_mqtt_name']
@@ -41,9 +41,9 @@ def read():
         if os.getenv('TEMP_MQTT_NAME', 'None') != 'None':
             values["temp_mqtt_name"] = os.getenv('TEMP_MQTT_NAME')
             # print ("using env: TEMP_MQTT_NAME")
-        if os.getenv('GOODWE_MQTT_NAME', 'None') != 'None':
-            values["goodwe_mqtt_name"] = os.getenv('GOODWE_MQTT_NAME')
-            # print ("using env: GOODWE_MQTT_NAME")
+        # if os.getenv('GOODWE_MQTT_NAME', 'None') != 'None':
+        #     values["goodwe_mqtt_name"] = os.getenv('GOODWE_MQTT_NAME')
+        #     # print ("using env: GOODWE_MQTT_NAME")
         if os.getenv('DALY1_MQTT_NAME', 'None') != 'None':
             values["daly1_mqtt_name"] = os.getenv('DALY1_MQTT_NAME')
             # print ("using env: DALY1_MQTT_NAME")
