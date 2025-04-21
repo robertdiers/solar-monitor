@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 # import asyncio
+import datetime as dt
 import goodwe
 import TimescaleDb
 
@@ -11,6 +12,11 @@ class Goodwe:
 
         inverter = await goodwe.connect(goodwe_ip)
         runtime_data = await inverter.read_runtime_data()
+
+        # do not log all values between 23 and 3 o'clock
+        store_all = False
+        if dt.datetime.now().hour < 23 and dt.datetime.now().hour >= 3:
+            store_all = True
 
         for sensor in inverter.sensors():
             if sensor.id_ in runtime_data:
@@ -28,14 +34,16 @@ class Goodwe:
                 if 'pgrid' in sensor.id_:
                     TimescaleDb.writeW('goodwe_grid', runtime_data[sensor.id_])
                 if 'e_day' in sensor.id_:
-                    TimescaleDb.writeK('goodwe', runtime_data[sensor.id_])
-                    TimescaleDb.writeKT('goodwe', runtime_data[sensor.id_])
-                if 'e_load_day' in sensor.id_:
-                    TimescaleDb.writeK('goodwe_load', runtime_data[sensor.id_])
+                    if store_all:
+                        TimescaleDb.writeK('goodwe', runtime_data[sensor.id_])
+                        TimescaleDb.writeKT('goodwe', runtime_data[sensor.id_])
                 # need to be careful with in statement
                 if 'ppv1' in sensor.id_:
-                    TimescaleDb.writeW('goodwe_pv_1', runtime_data[sensor.id_])
+                    if store_all:
+                        TimescaleDb.writeW('goodwe_pv_1', runtime_data[sensor.id_])
                 elif 'ppv2' in sensor.id_:
-                    TimescaleDb.writeW('goodwe_pv_2', runtime_data[sensor.id_])
+                    if store_all:
+                        TimescaleDb.writeW('goodwe_pv_2', runtime_data[sensor.id_])
                 elif 'ppv' in sensor.id_:
-                    TimescaleDb.writeW('goodwe_pv', runtime_data[sensor.id_])
+                    if store_all:
+                        TimescaleDb.writeW('goodwe_pv', runtime_data[sensor.id_])

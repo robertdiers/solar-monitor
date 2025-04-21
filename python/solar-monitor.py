@@ -77,18 +77,24 @@ def kostal(inverter_ip, inverter_port):
         # read Kostal
         kostalvalues = Kostal.read(inverter_ip, inverter_port)
 
+        # do not log all values between 23 and 3 o'clock
+        store_all = False
+        if datetime.now().hour < 23 and datetime.now().hour >= 3:
+            store_all = True
+
         # write to db
         TimescaleDb.writeW('kostal_consumption', kostalvalues["consumption_total"])
         TimescaleDb.writeW('kostal_inverter', kostalvalues["inverter"])
         TimescaleDb.writeW('kostal_powertobattery', kostalvalues["powerToBattery"])
         TimescaleDb.writeP('kostal_batterypercent', (kostalvalues["batterypercent"]/100))
-        TimescaleDb.writeW('kostal_generation', kostalvalues["generation"])
         TimescaleDb.writeW('kostal_powertogrid', kostalvalues["powerToGrid"])
         TimescaleDb.writeW('kostal_surplus', kostalvalues["surplus"])
-        TimescaleDb.writeK('kostal', kostalvalues["dailyyield"])
 
-        # update latest daily yield
-        TimescaleDb.writeKT('kostal', kostalvalues["dailyyield"])
+        if store_all:
+            TimescaleDb.writeW('kostal_generation', kostalvalues["generation"])
+            TimescaleDb.writeK('kostal', kostalvalues["dailyyield"])
+            # update latest daily yield
+            TimescaleDb.writeKT('kostal', kostalvalues["dailyyield"])
 
     except Exception as ex:
         print("ERROR kostal: ", ex)

@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import datetime as dt
 import time
 import math
 
@@ -40,41 +41,44 @@ attributes = ["apower", "aenergy_total"]
 def writedb(name, json):
     # print(json)
     global attributes
-    for attribute in attributes:
-        # print(attribute)
-        if attribute in json:
-            # print(attribute+": "+str(json[attribute]))
-            value = 0
-            if math.isnan(json[attribute]):
-                print(attribute+" nan: "+str(json[attribute]))
-            else:
-                value = float(json[attribute])
-                if attribute in 'apower':
-                    value = -value
-                    # print(attribute+" apower: "+str(value))
-                    TimescaleDb.writeW(name, value)
-                if attribute in 'aenergy_total':
-                    # this is a kind of a counter, not a per-day-value
-                    # we need to fill a counter table and substract yesterdays value
-                    key = name
-                    # wh to kwh
-                    today_counter = value / 1000
-                    # print(attribute+": "+str(today_counter))
-                    # 1. update counter table (will update the counter for 'today')
-                    TimescaleDb.writeKTC(key, today_counter)
-                    # 2. get counter value from yesterday
-                    yesterday_counter = TimescaleDb.readKTCYesterday(key)
-                    # print(attribute+" yesterday: "+str(yesterday_counter))
-                    # 3. check if this is a resetted counter
-                    if yesterday_counter > today_counter:
-                        print('detected resetted counter - ignoring yesterdays kwh')
-                        yesterday_counter = 0
-                    # 4. calculate the diff
-                    today_kwh = today_counter - yesterday_counter
-                    # print(attribute+" today_kwh: "+str(today_kwh))
-                    # 5. store todays value
-                    TimescaleDb.writeK(key, today_kwh)
-                    TimescaleDb.writeKT(key, today_kwh)
+
+    # do not log values between 23 and 3 o'clock
+    if dt.datetime.now().hour < 23 and dt.datetime.now().hour >= 3:
+        for attribute in attributes:
+            # print(attribute)
+            if attribute in json:
+                # print(attribute+": "+str(json[attribute]))
+                value = 0
+                if math.isnan(json[attribute]):
+                    print(attribute+" nan: "+str(json[attribute]))
+                else:
+                    value = float(json[attribute])
+                    if attribute in 'apower':
+                        value = -value
+                        # print(attribute+" apower: "+str(value))
+                        TimescaleDb.writeW(name, value)
+                    if attribute in 'aenergy_total':
+                        # this is a kind of a counter, not a per-day-value
+                        # we need to fill a counter table and substract yesterdays value
+                        key = name
+                        # wh to kwh
+                        today_counter = value / 1000
+                        # print(attribute+": "+str(today_counter))
+                        # 1. update counter table (will update the counter for 'today')
+                        TimescaleDb.writeKTC(key, today_counter)
+                        # 2. get counter value from yesterday
+                        yesterday_counter = TimescaleDb.readKTCYesterday(key)
+                        # print(attribute+" yesterday: "+str(yesterday_counter))
+                        # 3. check if this is a resetted counter
+                        if yesterday_counter > today_counter:
+                            print('detected resetted counter - ignoring yesterdays kwh')
+                            yesterday_counter = 0
+                        # 4. calculate the diff
+                        today_kwh = today_counter - yesterday_counter
+                        # print(attribute+" today_kwh: "+str(today_kwh))
+                        # 5. store todays value
+                        TimescaleDb.writeK(key, today_kwh)
+                        TimescaleDb.writeKT(key, today_kwh)
 
 
 if __name__ == "__main__":
