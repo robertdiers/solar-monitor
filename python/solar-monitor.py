@@ -178,7 +178,7 @@ if __name__ == "__main__":
 
         # metrics
         tasmota_temp(conf["temp_mqtt_name"], 'bath_room')
-        tasmota_pm(conf["goodwe_mqtt_name"], 'goodwe_tasmota')
+        # tasmota_pm(conf["goodwe_mqtt_name"], 'goodwe_tasmota')
         byd(conf["byd_ip"], conf["byd_port"])
         idm(conf["idm_ip"], conf["idm_port"])
         kostal(conf["inverter_ip"], conf["inverter_port"])
