@@ -6,7 +6,7 @@
 * Kostal energy meter
 * iDM Heat Pump AERO SLM 6-17 with "solar input" feature
 * multiple Solax Mini inverters (power metered by Shelly PM Mini G3)
-* GoodWe 5048D-ES inverter with Tasmota Sonoff POW R3
+* GoodWe 5048D-ES inverter
 * 48V battery block with Daly BMS (3 blocks in parallel)
 * Tasmota device with temperature sensor (Sonoff TH16 + DS18B20)
 * Device to run the containers
