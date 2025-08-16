@@ -22,9 +22,11 @@ class Goodwe:
             if sensor.id_ in runtime_data:
 
                 # print(f"{sensor.id_}: \t\t {sensor.name} = {runtime_data[sensor.id_]} {sensor.unit}")
-                if 'temperature' in sensor.id_ and 'battery_' not in sensor.id_:
-                    if '_air' not in sensor.id_ and '_module' not in sensor.id_:
-                        TimescaleDb.writeT('goodwe_' + suffix + '_temp', runtime_data[sensor.id_])
+                if 'temperature' in sensor.id_ and len(sensor.id_) == 11:
+                    # print('goodwe_' + suffix)
+                    # print(sensor.id_)
+                    # print(runtime_data[sensor.id_])
+                    TimescaleDb.writeT('goodwe_' + suffix + '_temp', runtime_data[sensor.id_])
                 if 'battery_temperature' in sensor.id_:
                     TimescaleDb.writeT('goodwe_' + suffix + '_battery_temp', runtime_data[sensor.id_])
                 if 'vbattery1' in sensor.id_:
@@ -42,11 +44,13 @@ class Goodwe:
                 if 'pgrid' in sensor.id_ and '48' in suffix:
                     TimescaleDb.writeW('goodwe_' + suffix + '_grid', runtime_data[sensor.id_])
 
-                if 'e_day' in sensor.id_:
-                    if '_exp' not in sensor.id_ and '_imp' not in sensor.id_:
-                        if store_all:
-                            TimescaleDb.writeK('goodwe_' + suffix, runtime_data[sensor.id_])
-                            TimescaleDb.writeKT('goodwe_' + suffix, runtime_data[sensor.id_])
+                if 'e_day' in sensor.id_ and len(sensor.id_) == 5:
+                    if store_all:
+                        # print('goodwe_' + suffix)
+                        # print(sensor.id_)
+                        # print(runtime_data[sensor.id_])
+                        TimescaleDb.writeK('goodwe_' + suffix, runtime_data[sensor.id_])
+                        TimescaleDb.writeKT('goodwe_' + suffix, runtime_data[sensor.id_])
 
                 # need to be careful with in statement
                 if 'ppv1' in sensor.id_:
