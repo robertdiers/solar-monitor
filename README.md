@@ -1,5 +1,9 @@
 # solar-monitor
 
+* Using GoodWe hybrid inverters, because they are able to work with negative house load - in my case energy from other inverters
+* Want to avoid cloud usage, the SolaX inverters are measured by cheap Shelly PM Mini G3
+* Connected heat pump to HV inverter/battery, as I want to make use of solar surplus as early as possible (https://github.com/robertdiers/goodwe_idmpump)
+
 ## Setup:
 * GoodWe GW8K-ET inverter (HV)
 * BYD HVS storage
@@ -29,8 +33,6 @@
 * Solax.py - read actual values from Solax inverter (Solax Portal API) - UNUSED
 * Tasmota.py - read Tasmota data (MQTT)
 * TimescaleDb.py - write to TimescaleDB
-
-Hint: data input for iDM is realized with dedicated container: https://github.com/robertdiers/goodwe_idmpump
 
 ## Docker Compose
 
