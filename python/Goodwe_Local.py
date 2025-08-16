@@ -8,7 +8,7 @@ import TimescaleDb
 
 class Goodwe:
 
-    async def get_runtime_data(goodwe_ip):
+    async def get_runtime_data(goodwe_ip, suffix):
 
         inverter = await goodwe.connect(goodwe_ip)
         runtime_data = await inverter.read_runtime_data()
@@ -20,30 +20,39 @@ class Goodwe:
 
         for sensor in inverter.sensors():
             if sensor.id_ in runtime_data:
+
                 # print(f"{sensor.id_}: \t\t {sensor.name} = {runtime_data[sensor.id_]} {sensor.unit}")
                 if 'temperature' in sensor.id_ and 'battery_' not in sensor.id_:
-                    TimescaleDb.writeT('goodwe_temp', runtime_data[sensor.id_])
+                    TimescaleDb.writeT('goodwe_' + suffix + '_temp', runtime_data[sensor.id_])
+                if 'battery_temperature' in sensor.id_:
+                    TimescaleDb.writeT('goodwe_' + suffix + '_battery_temp', runtime_data[sensor.id_])
                 if 'vbattery1' in sensor.id_:
-                    TimescaleDb.writeV('goodwe_battery_volt', float(runtime_data[sensor.id_]))
+                    TimescaleDb.writeV('goodwe_' + suffix + '_battery_volt', float(runtime_data[sensor.id_]))
                 if 'pbattery1' in sensor.id_:
-                    TimescaleDb.writeW('goodwe_battery_watt', runtime_data[sensor.id_])
+                    TimescaleDb.writeW('goodwe_' + suffix + '_battery_watt', runtime_data[sensor.id_])
                 if 'battery_soh' in sensor.id_:
-                    TimescaleDb.writeP('goodwe_battery_soh', float(runtime_data[sensor.id_]) / 100.0)
+                    TimescaleDb.writeP('goodwe_' + suffix + '_battery_soh', float(runtime_data[sensor.id_]) / 100.0)
                 if 'battery_soc' in sensor.id_:
-                    TimescaleDb.writeP('goodwe_battery_soc', float(runtime_data[sensor.id_]) / 100.0)
-                if 'pgrid' in sensor.id_:
-                    TimescaleDb.writeW('goodwe_grid', runtime_data[sensor.id_])
+                    TimescaleDb.writeP('goodwe_' + suffix + '_battery_soc', float(runtime_data[sensor.id_]) / 100.0)
+
+                # HV does have a total attribute
+                if 'total_inverter_power' in sensor.id_ and 'hv' in suffix:
+                    TimescaleDb.writeW('goodwe_' + suffix + '_grid', runtime_data[sensor.id_])
+                if 'pgrid' in sensor.id_ and '48' in suffix:
+                    TimescaleDb.writeW('goodwe_' + suffix + '_grid', runtime_data[sensor.id_])
+
                 if 'e_day' in sensor.id_:
                     if store_all:
-                        TimescaleDb.writeK('goodwe', runtime_data[sensor.id_])
-                        TimescaleDb.writeKT('goodwe', runtime_data[sensor.id_])
+                        TimescaleDb.writeK('goodwe_' + suffix, runtime_data[sensor.id_])
+                        TimescaleDb.writeKT('goodwe_' + suffix, runtime_data[sensor.id_])
+
                 # need to be careful with in statement
                 if 'ppv1' in sensor.id_:
                     if store_all:
-                        TimescaleDb.writeW('goodwe_pv_1', runtime_data[sensor.id_])
+                        TimescaleDb.writeW('goodwe_' + suffix + '_pv_1', runtime_data[sensor.id_])
                 elif 'ppv2' in sensor.id_:
                     if store_all:
-                        TimescaleDb.writeW('goodwe_pv_2', runtime_data[sensor.id_])
+                        TimescaleDb.writeW('goodwe_' + suffix + '_pv_2', runtime_data[sensor.id_])
                 elif 'ppv' in sensor.id_:
                     if store_all:
-                        TimescaleDb.writeW('goodwe_pv', runtime_data[sensor.id_])
+                        TimescaleDb.writeW('goodwe_' + suffix + '_pv', runtime_data[sensor.id_])

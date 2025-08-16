@@ -41,9 +41,6 @@ def read():
         if os.getenv('TEMP_MQTT_NAME', 'None') != 'None':
             values["temp_mqtt_name"] = os.getenv('TEMP_MQTT_NAME')
             # print ("using env: TEMP_MQTT_NAME")
-        # if os.getenv('GOODWE_MQTT_NAME', 'None') != 'None':
-        #     values["goodwe_mqtt_name"] = os.getenv('GOODWE_MQTT_NAME')
-        #     # print ("using env: GOODWE_MQTT_NAME")
         if os.getenv('DALY1_MQTT_NAME', 'None') != 'None':
             values["daly1_mqtt_name"] = os.getenv('DALY1_MQTT_NAME')
             # print ("using env: DALY1_MQTT_NAME")
@@ -100,15 +97,6 @@ def read():
             values["idm_port"] = int(os.getenv('IDM_PORT'))
             # print ("using env: IDM_PORT")
 
-        values["inverter_ip"] = config['KostalSection']['inverter_ip']
-        values["inverter_port"] = int(config['KostalSection']['inverter_port'])
-        if os.getenv('INVERTER_IP', 'None') != 'None':
-            values["inverter_ip"] = os.getenv('INVERTER_IP')
-            # print ("using env: INVERTER_IP")
-        if os.getenv('INVERTER_PORT', 'None') != 'None':
-            values["inverter_port"] = int(os.getenv('INVERTER_PORT'))
-            # print ("using env: INVERTER_PORT")
-
         values["mqtt_broker"] = config['MqttSection']['mqtt_broker']
         values["mqtt_port"] = int(config['MqttSection']['mqtt_port'])
         values["mqtt_user"] = config['MqttSection']['mqtt_user']
@@ -147,10 +135,14 @@ def read():
         # if os.getenv('SEMS_STATIONID', 'None') != 'None':
         #     values["sems_stationid"] = os.getenv('SEMS_STATIONID')
         #     # print ("using env: SEMS_STATIONID "+values["sems_stationid"])
-        values["goodwe_ip"] = config['GoodweSection']['goodwe_ip']
-        if os.getenv('GOODWE_IP', 'None') != 'None':
-            values["goodwe_ip"] = os.getenv('GOODWE_IP')
-            # print ("using env: GOODWE_IP "+values["goodwe_ip"])
+        values["goodwe_ip_48"] = config['GoodweSection']['goodwe_ip_48']
+        if os.getenv('GOODWE_IP_48', 'None') != 'None':
+            values["goodwe_ip_48"] = os.getenv('GOODWE_IP_48')
+            # print ("using env: GOODWE_IP_48 "+values["goodwe_ip_48"])
+        values["goodwe_ip_hv"] = config['GoodweSection']['goodwe_ip_hv']
+        if os.getenv('GOODWE_IP_HV', 'None') != 'None':
+            values["goodwe_ip_hv"] = os.getenv('GOODWE_IP_HV')
+            # print ("using env: GOODWE_IP_HV "+values["goodwe_ip_hv"])
 
         # print (datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " config: ", values)
 

@@ -8,7 +8,6 @@ import TimescaleDb
 import Tasmota
 import BYD
 import Config
-import Kostal
 import IdmPump
 # import Solax
 # import Goodwe
@@ -28,21 +27,21 @@ def tasmota_temp(mqtt_name, alias):
 
 
 # power meter metrcis from Tasmota
-def tasmota_pm(mqtt_name, alias):
-    try:
-        result = Tasmota.get(mqtt_name, "8", ["StatusSNS_ENERGY_Power", "StatusSNS_ENERGY_Today"])
-        if math.isnan(result["StatusSNS_ENERGY_Power"]):
-            print("StatusSNS_ENERGY_Power nan: "+str(result["StatusSNS_ENERGY_Power"]))
-        else:
-            TimescaleDb.writeW(alias + '_power', result["StatusSNS_ENERGY_Power"])
-        if math.isnan(result["StatusSNS_ENERGY_Today"]):
-            print("StatusSNS_ENERGY_Today nan: "+str(result["StatusSNS_ENERGY_Today"]))
-        else:
-            TimescaleDb.writeK(alias, result["StatusSNS_ENERGY_Today"])
-            # write to total table
-            TimescaleDb.writeKT(alias, result["StatusSNS_ENERGY_Today"])
-    except Exception as ex:
-        print("ERROR tasmota " + mqtt_name + ": ", ex)
+# def tasmota_pm(mqtt_name, alias):
+#     try:
+#         result = Tasmota.get(mqtt_name, "8", ["StatusSNS_ENERGY_Power", "StatusSNS_ENERGY_Today"])
+#         if math.isnan(result["StatusSNS_ENERGY_Power"]):
+#             print("StatusSNS_ENERGY_Power nan: "+str(result["StatusSNS_ENERGY_Power"]))
+#         else:
+#             TimescaleDb.writeW(alias + '_power', result["StatusSNS_ENERGY_Power"])
+#         if math.isnan(result["StatusSNS_ENERGY_Today"]):
+#             print("StatusSNS_ENERGY_Today nan: "+str(result["StatusSNS_ENERGY_Today"]))
+#         else:
+#             TimescaleDb.writeK(alias, result["StatusSNS_ENERGY_Today"])
+#             # write to total table
+#             TimescaleDb.writeKT(alias, result["StatusSNS_ENERGY_Today"])
+#     except Exception as ex:
+#         print("ERROR tasmota " + mqtt_name + ": ", ex)
 
 
 # metrics from BYD
@@ -69,35 +68,6 @@ def idm(idm_ip, idm_port):
         TimescaleDb.writeW('idm_solar', IdmPump.read(idm_ip, idm_port)*1000)
     except Exception as ex:
         print("ERROR idm: ", ex)
-
-
-# metrics from Kostal
-def kostal(inverter_ip, inverter_port):
-    try:
-        # read Kostal
-        kostalvalues = Kostal.read(inverter_ip, inverter_port)
-
-        # do not log all values between 23 and 3 o'clock
-        store_all = False
-        if datetime.now().hour < 23 and datetime.now().hour >= 3:
-            store_all = True
-
-        # write to db
-        TimescaleDb.writeW('kostal_consumption', kostalvalues["consumption_total"])
-        TimescaleDb.writeW('kostal_inverter', kostalvalues["inverter"])
-        TimescaleDb.writeW('kostal_powertobattery', kostalvalues["powerToBattery"])
-        TimescaleDb.writeP('kostal_batterypercent', (kostalvalues["batterypercent"]/100))
-        TimescaleDb.writeW('kostal_powertogrid', kostalvalues["powerToGrid"])
-        TimescaleDb.writeW('kostal_surplus', kostalvalues["surplus"])
-
-        if store_all:
-            TimescaleDb.writeW('kostal_generation', kostalvalues["generation"])
-            TimescaleDb.writeK('kostal', kostalvalues["dailyyield"])
-            # update latest daily yield
-            TimescaleDb.writeKT('kostal', kostalvalues["dailyyield"])
-
-    except Exception as ex:
-        print("ERROR kostal: ", ex)
 
 
 # # metrics from Solax
@@ -159,10 +129,10 @@ def kostal(inverter_ip, inverter_port):
 
 
 # # metrics from Goodwe
-def goodwe_local(goodwe_ip):
+def goodwe_local(goodwe_ip, suffix):
     try:
         # read Goodwe
-        asyncio.run(Goodwe_Local.Goodwe.get_runtime_data(goodwe_ip))
+        asyncio.run(Goodwe_Local.Goodwe.get_runtime_data(goodwe_ip, suffix))
     except Exception as ex:
         print("ERROR goodwe: ", ex)
 
@@ -178,11 +148,10 @@ if __name__ == "__main__":
 
         # metrics
         tasmota_temp(conf["temp_mqtt_name"], 'bath_room')
-        # tasmota_pm(conf["goodwe_mqtt_name"], 'goodwe_tasmota')
         byd(conf["byd_ip"], conf["byd_port"])
         idm(conf["idm_ip"], conf["idm_port"])
-        kostal(conf["inverter_ip"], conf["inverter_port"])
-        goodwe_local(conf["goodwe_ip"])
+        goodwe_local(conf["goodwe_ip_hv"], 'hv')
+        goodwe_local(conf["goodwe_ip_48"], '48')
 
         # deactivated cloud solutions
         # solax(conf["solax_tokenid"], conf["solax_inverter"])

@@ -1,15 +1,16 @@
 # solar-monitor
 
 ## Setup:
-* Kostal Plenticore 10 inverter
+* GoodWe GW8K-ET inverter (HV)
 * BYD HVS storage
-* Kostal energy meter
 * iDM Heat Pump AERO SLM 6-17 with "solar input" feature
 * multiple Solax Mini inverters (power metered by Shelly PM Mini G3)
-* GoodWe 5048D-ES inverter
+* GoodWe 5048D-ES inverter (48V)
 * 48V battery block with Daly BMS (3 blocks in parallel)
 * Tasmota device with temperature sensor (Sonoff TH16 + DS18B20)
 * Device to run the containers
+
+![arch](./arch.drawio.png)
 
 ## main Python scripts (startup and cron triggered):
 * init.py - initializes TimescaleDB tables as they are removed when device restarts
@@ -24,13 +25,12 @@
 * Goodwe.py - read actual values from Goodwe inverter (SEMS Portal API) - UNUSED
 * Goodwe_Local.py - read actual values from Goodwe inverter (python package)
 * IdmPump.py - read actual solar power from iDM heat pump (TCP Modbus)
-* Kostal.py - read actual values from Kostal inverter (TCP Modbus)
 * Shelly.py - subscribes to MQTT topic to read data
 * Solax.py - read actual values from Solax inverter (Solax Portal API) - UNUSED
 * Tasmota.py - read Tasmota data (MQTT)
 * TimescaleDb.py - write to TimescaleDB
 
-Hint: data input for iDM is realized with dedicated container: https://github.com/robertdiers/kostal_idmpump
+Hint: data input for iDM is realized with dedicated container: https://github.com/robertdiers/goodwe_idmpump
 
 ## Docker Compose
 
@@ -49,8 +49,8 @@ services:
         - TIMESCALEDB_PASSWORD=databasepassword
         - BYD_IP=bydip
         - IDM_IP=idmip
-        - INVERTER_IP=kostalip
-        - GOODWE_IP=goodweip
+        - GOODWE_IP_HV=goodweip_hv
+        - GOODWE_IP_48=goodweip_48v
 ```
 
 ### TimescaleDB (please define your own password)
