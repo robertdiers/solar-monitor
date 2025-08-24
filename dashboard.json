@@ -110,7 +110,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.2.0-16979757807",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "datasource": {
@@ -263,7 +263,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.2.0-16979757807",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "datasource": {
@@ -430,7 +430,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.2.0-16979757807",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "datasource": {
@@ -567,7 +567,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.2.0-16979757807",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "datasource": {
@@ -704,7 +704,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.2.0-16979757807",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "datasource": {
@@ -841,7 +841,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.2.0-16979757807",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "datasource": {
@@ -978,7 +978,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.2.0-16979757807",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "datasource": {
@@ -1114,7 +1114,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.2.0-16979757807",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "datasource": {
@@ -1251,7 +1251,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.2.0-16979757807",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "datasource": {
@@ -1417,7 +1417,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.2.0-16979757807",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "datasource": {
@@ -1527,7 +1527,7 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "12.2.0-16979757807",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "datasource": {
@@ -1664,7 +1664,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.2.0-16979757807",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "datasource": {
@@ -1774,7 +1774,7 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "12.2.0-16979757807",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "datasource": {
@@ -1911,7 +1911,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.2.0-16979757807",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "datasource": {
@@ -2021,7 +2021,7 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "12.2.0-16979757807",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "datasource": {
@@ -2087,12 +2087,12 @@
     "list": []
   },
   "time": {
-    "from": "now-12h",
+    "from": "now-3h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Robert",
   "uid": "EFixgMmRz",
-  "version": 12
+  "version": 14
 }
