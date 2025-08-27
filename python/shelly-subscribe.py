@@ -61,7 +61,7 @@ def writedb(name, json):
                         # this is a kind of a counter, not a per-day-value
                         # we need to fill a counter table and substract yesterdays value
                         key = name
-                        # mwh to kwh
+                        # wh to kwh
                         today_counter = value / 1000
                         # print(attribute+": "+str(today_counter))
                         # 1. update counter table (will update the counter for 'today')
@@ -75,7 +75,7 @@ def writedb(name, json):
                             yesterday_counter = 0
                         # 4. calculate the diff
                         today_kwh = today_counter - yesterday_counter
-                        # print(attribute+" today_kwh: "+str(today_kwh))
+                        print(name+" today_kwh: "+str(today_kwh))
                         # 5. store todays value
                         TimescaleDb.writeK(key, today_kwh)
                         TimescaleDb.writeKT(key, today_kwh)
