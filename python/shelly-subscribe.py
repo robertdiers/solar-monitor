@@ -75,7 +75,7 @@ def writedb(name, json):
                             yesterday_counter = 0
                         # 4. calculate the diff
                         today_kwh = today_counter - yesterday_counter
-                        print(name+" today_kwh: "+str(today_kwh))
+                        # print(name+" today_kwh: "+str(today_kwh))
                         # 5. store todays value
                         TimescaleDb.writeK(key, today_kwh)
                         TimescaleDb.writeKT(key, today_kwh)
