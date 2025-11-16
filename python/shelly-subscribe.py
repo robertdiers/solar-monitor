@@ -90,6 +90,7 @@ if __name__ == "__main__":
     shelly6 = ''
     shelly7 = ''
     shelly8 = ''
+    shelly9 = ''
     conf = Config.read()
     try:
 
@@ -112,6 +113,8 @@ if __name__ == "__main__":
                                    conf["shelly7_mqtt_name"], writedb, "shelly7")
         shelly8 = Shelly.subscribe(conf["mqtt_broker"], conf["mqtt_port"], conf["mqtt_user"], conf["mqtt_password"],
                                    conf["shelly8_mqtt_name"], writedb, "shelly8")
+        shelly9 = Shelly.subscribe(conf["mqtt_broker"], conf["mqtt_port"], conf["mqtt_user"], conf["mqtt_password"],
+                                   conf["shelly9_mqtt_name"], writedb, "shelly9")
 
         # run 10 minutes
         minutes = 0
@@ -132,3 +135,4 @@ if __name__ == "__main__":
         Shelly.close(shelly6, conf["shelly6_mqtt_name"])
         Shelly.close(shelly7, conf["shelly7_mqtt_name"])
         Shelly.close(shelly8, conf["shelly8_mqtt_name"])
+        Shelly.close(shelly9, conf["shelly9_mqtt_name"])
