@@ -24,9 +24,94 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 2,
   "links": [],
   "panels": [
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "eehbfnzuycetca"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "footer": {
+              "reducers": []
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 2,
+        "x": 0,
+        "y": 0
+      },
+      "id": 23,
+      "options": {
+        "cellHeight": "sm",
+        "showHeader": false
+      },
+      "pluginVersion": "12.4.2",
+      "targets": [
+        {
+          "dataset": "postgres",
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT MAX(last_successful) AT TIME ZONE 'Europe/Berlin' FROM server_backup LIMIT 50 ",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "name": "MAX",
+                "parameters": [
+                  {
+                    "name": "last_successful",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          },
+          "table": "server_backup"
+        }
+      ],
+      "title": "Backups",
+      "type": "table"
+    },
     {
       "datasource": {
         "type": "grafana-postgresql-datasource",
@@ -64,6 +149,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
+            "showValues": false,
             "spanNulls": true,
             "stacking": {
               "group": "A",
@@ -94,7 +180,7 @@
         "h": 14,
         "w": 24,
         "x": 0,
-        "y": 0
+        "y": 3
       },
       "id": 2,
       "options": {
@@ -110,7 +196,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.1.1",
+      "pluginVersion": "12.4.2",
       "targets": [
         {
           "datasource": {
@@ -217,6 +303,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
+            "showValues": false,
             "spanNulls": true,
             "stacking": {
               "group": "A",
@@ -247,7 +334,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 14
+        "y": 17
       },
       "id": 4,
       "options": {
@@ -263,7 +350,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.1.1",
+      "pluginVersion": "12.4.2",
       "targets": [
         {
           "datasource": {
@@ -273,7 +360,6 @@
           "editorMode": "code",
           "format": "time_series",
           "group": [],
-          "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
           "rawSql": "SELECT\n  \"time\" AS \"time\",\n  value,\n  key\nFROM voltages\nWHERE\n  $__timeFilter(\"time\") \n  and key like '%Voltage' or key like '%48_battery_volt'\nORDER BY 1",
@@ -324,7 +410,6 @@
           },
           "editorMode": "code",
           "format": "table",
-          "hide": false,
           "rawQuery": true,
           "rawSql": "SELECT\n  \"time\" AS \"time\",\n  value / 10 as \"goodwe_hv_battery_volt\",\n  key\nFROM voltages\nWHERE\n  $__timeFilter(\"time\") \n  and key like '%hv_battery_volt'\nORDER BY 1",
           "refId": "A",
@@ -384,6 +469,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
+            "showValues": false,
             "spanNulls": true,
             "stacking": {
               "group": "A",
@@ -414,7 +500,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 14
+        "y": 17
       },
       "id": 9,
       "options": {
@@ -430,7 +516,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.1.1",
+      "pluginVersion": "12.4.2",
       "targets": [
         {
           "datasource": {
@@ -440,7 +526,6 @@
           "editorMode": "code",
           "format": "time_series",
           "group": [],
-          "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
           "rawSql": "SELECT\n  \"time\" AS \"time\",\n  value,\n  key\nFROM percentages\nWHERE\n  $__timeFilter(\"time\") \nAND SUBSTRING(key, 1, 5) != 'xmrig'\nAND SUBSTRING(key, 1, 4) != 'chia'\nORDER BY 1",
@@ -521,6 +606,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
+            "showValues": false,
             "spanNulls": true,
             "stacking": {
               "group": "A",
@@ -551,7 +637,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 22
+        "y": 25
       },
       "id": 16,
       "options": {
@@ -567,7 +653,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.1.1",
+      "pluginVersion": "12.4.2",
       "targets": [
         {
           "datasource": {
@@ -577,7 +663,6 @@
           "editorMode": "code",
           "format": "time_series",
           "group": [],
-          "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
           "rawSql": "SELECT\n  \"time\" AS \"time\",\n  value,\n  key\nFROM voltages\nWHERE\n  $__timeFilter(\"time\") \n    and (key like '%Cell_Diff' or key like '%diffvolt')\nORDER BY 1",
@@ -658,6 +743,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
+            "showValues": false,
             "spanNulls": true,
             "stacking": {
               "group": "A",
@@ -688,7 +774,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 22
+        "y": 25
       },
       "id": 5,
       "options": {
@@ -704,7 +790,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.1.1",
+      "pluginVersion": "12.4.2",
       "targets": [
         {
           "datasource": {
@@ -714,7 +800,6 @@
           "editorMode": "code",
           "format": "time_series",
           "group": [],
-          "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
           "rawSql": "SELECT\n  \"time\" AS \"time\",\n  value,\n  key\nFROM temps\nWHERE\n  $__timeFilter(\"time\")\nORDER BY 1",
@@ -795,6 +880,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
+            "showValues": false,
             "spanNulls": true,
             "stacking": {
               "group": "A",
@@ -825,7 +911,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 30
+        "y": 33
       },
       "id": 14,
       "options": {
@@ -841,7 +927,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.1.1",
+      "pluginVersion": "12.4.2",
       "targets": [
         {
           "datasource": {
@@ -851,7 +937,6 @@
           "editorMode": "code",
           "format": "time_series",
           "group": [],
-          "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
           "rawSql": "SELECT\n  \"time\" AS \"time\",\n  value,\n  key\nFROM voltages\nWHERE\n  $__timeFilter(\"time\") \n    and (key like '%minvolt' or key like '%maxvolt' or key like '%High_CellV' or key like '%Low_CellV')\nORDER BY 1",
@@ -932,6 +1017,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
+            "showValues": false,
             "spanNulls": true,
             "stacking": {
               "group": "A",
@@ -962,7 +1048,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 30
+        "y": 33
       },
       "id": 8,
       "options": {
@@ -978,7 +1064,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.1.1",
+      "pluginVersion": "12.4.2",
       "targets": [
         {
           "datasource": {
@@ -1068,6 +1154,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
+            "showValues": false,
             "spanNulls": true,
             "stacking": {
               "group": "A",
@@ -1098,7 +1185,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 38
+        "y": 41
       },
       "id": 17,
       "options": {
@@ -1114,7 +1201,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.1.1",
+      "pluginVersion": "12.4.2",
       "targets": [
         {
           "datasource": {
@@ -1205,6 +1292,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
+            "showValues": false,
             "spanNulls": true,
             "stacking": {
               "group": "A",
@@ -1235,7 +1323,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 38
+        "y": 41
       },
       "id": 18,
       "options": {
@@ -1251,7 +1339,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.1.1",
+      "pluginVersion": "12.4.2",
       "targets": [
         {
           "datasource": {
@@ -1261,7 +1349,6 @@
           "editorMode": "code",
           "format": "time_series",
           "group": [],
-          "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
           "rawSql": "SELECT\n  \"time\" AS \"time\",\n  value,\n  key\nFROM percentages\nWHERE\n  $__timeFilter(\"time\") \nAND SUBSTRING(key, 1, 5) = 'xmrig'\nORDER BY 1",
@@ -1311,7 +1398,6 @@
           },
           "editorMode": "code",
           "format": "time_series",
-          "hide": false,
           "rawQuery": true,
           "rawSql": "SELECT\n  \"time\" AS \"time\",\n  value,\n  key\nFROM percentages\nWHERE\n  $__timeFilter(\"time\") \nAND SUBSTRING(key, 1, 4) = 'chia'\nORDER BY 1",
           "refId": "A",
@@ -1371,6 +1457,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
+            "showValues": false,
             "spanNulls": true,
             "stacking": {
               "group": "A",
@@ -1401,7 +1488,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 46
+        "y": 49
       },
       "id": 10,
       "options": {
@@ -1417,7 +1504,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.1.1",
+      "pluginVersion": "12.4.2",
       "targets": [
         {
           "datasource": {
@@ -1427,7 +1514,6 @@
           "editorMode": "code",
           "format": "time_series",
           "group": [],
-          "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
           "rawSql": "SELECT\n  \"time\" AS \"time\",\n  value,\n  key\nFROM voltages\nWHERE\n  $__timeFilter(\"time\") AND\n  key in ('Daly1_CellV_CellV_1','Daly1_CellV_CellV_2','Daly1_CellV_CellV_3','Daly1_CellV_CellV_4','Daly1_CellV_CellV_5','Daly1_CellV_CellV_6','Daly1_CellV_CellV_7','Daly1_CellV_CellV_8','Daly1_CellV_CellV_9','Daly1_CellV_CellV_10','Daly1_CellV_CellV_11','Daly1_CellV_CellV_12','Daly1_CellV_CellV_13','Daly1_CellV_CellV_14','Daly1_CellV_CellV_15','Daly1_CellV_CellV_16')\nORDER BY 1",
@@ -1489,6 +1575,9 @@
             "cellOptions": {
               "type": "auto"
             },
+            "footer": {
+              "reducers": []
+            },
             "inspect": false
           },
           "mappings": [],
@@ -1512,22 +1601,14 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 46
+        "y": 49
       },
       "id": 20,
       "options": {
         "cellHeight": "sm",
-        "footer": {
-          "countRows": false,
-          "fields": "",
-          "reducer": [
-            "sum"
-          ],
-          "show": false
-        },
         "showHeader": true
       },
-      "pluginVersion": "12.1.1",
+      "pluginVersion": "12.4.2",
       "targets": [
         {
           "datasource": {
@@ -1537,7 +1618,6 @@
           "editorMode": "code",
           "format": "table",
           "group": [],
-          "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
           "rawSql": "SELECT\n  *\nFROM public.v_kwh_day",
@@ -1618,6 +1698,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
+            "showValues": false,
             "spanNulls": true,
             "stacking": {
               "group": "A",
@@ -1648,7 +1729,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 54
+        "y": 57
       },
       "id": 11,
       "options": {
@@ -1664,7 +1745,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.1.1",
+      "pluginVersion": "12.4.2",
       "targets": [
         {
           "datasource": {
@@ -1674,7 +1755,6 @@
           "editorMode": "code",
           "format": "time_series",
           "group": [],
-          "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
           "rawSql": "SELECT\n  \"time\" AS \"time\",\n  value,\n  key\nFROM voltages\nWHERE\n  $__timeFilter(\"time\") AND\n  key in ('Daly2_CellV_CellV_1','Daly2_CellV_CellV_2','Daly2_CellV_CellV_3','Daly2_CellV_CellV_4','Daly2_CellV_CellV_5','Daly2_CellV_CellV_6','Daly2_CellV_CellV_7','Daly2_CellV_CellV_8','Daly2_CellV_CellV_9','Daly2_CellV_CellV_10','Daly2_CellV_CellV_11','Daly2_CellV_CellV_12','Daly2_CellV_CellV_13','Daly2_CellV_CellV_14','Daly2_CellV_CellV_15','Daly2_CellV_CellV_16')\nORDER BY 1",
@@ -1736,6 +1816,9 @@
             "cellOptions": {
               "type": "auto"
             },
+            "footer": {
+              "reducers": []
+            },
             "inspect": false
           },
           "mappings": [],
@@ -1759,22 +1842,14 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 54
+        "y": 57
       },
       "id": 22,
       "options": {
         "cellHeight": "sm",
-        "footer": {
-          "countRows": false,
-          "fields": "",
-          "reducer": [
-            "sum"
-          ],
-          "show": false
-        },
         "showHeader": true
       },
-      "pluginVersion": "12.1.1",
+      "pluginVersion": "12.4.2",
       "targets": [
         {
           "datasource": {
@@ -1784,7 +1859,6 @@
           "editorMode": "code",
           "format": "table",
           "group": [],
-          "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
           "rawSql": "SELECT\n  *\nFROM public.v_kwh_month",
@@ -1865,6 +1939,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
+            "showValues": false,
             "spanNulls": true,
             "stacking": {
               "group": "A",
@@ -1895,7 +1970,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 62
+        "y": 65
       },
       "id": 12,
       "options": {
@@ -1911,7 +1986,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.1.1",
+      "pluginVersion": "12.4.2",
       "targets": [
         {
           "datasource": {
@@ -1921,7 +1996,6 @@
           "editorMode": "code",
           "format": "time_series",
           "group": [],
-          "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
           "rawSql": "SELECT\n  \"time\" AS \"time\",\n  value,\n  key\nFROM voltages\nWHERE\n  $__timeFilter(\"time\") AND\n  key in ('Daly3_CellV_CellV_1','Daly3_CellV_CellV_2','Daly3_CellV_CellV_3','Daly3_CellV_CellV_4','Daly3_CellV_CellV_5','Daly3_CellV_CellV_6','Daly3_CellV_CellV_7','Daly3_CellV_CellV_8','Daly3_CellV_CellV_9','Daly3_CellV_CellV_10','Daly3_CellV_CellV_11','Daly3_CellV_CellV_12','Daly3_CellV_CellV_13','Daly3_CellV_CellV_14','Daly3_CellV_CellV_15','Daly3_CellV_CellV_16')\nORDER BY 1",
@@ -1983,6 +2057,9 @@
             "cellOptions": {
               "type": "auto"
             },
+            "footer": {
+              "reducers": []
+            },
             "inspect": false
           },
           "mappings": [],
@@ -2006,22 +2083,14 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 62
+        "y": 65
       },
       "id": 21,
       "options": {
         "cellHeight": "sm",
-        "footer": {
-          "countRows": false,
-          "fields": "",
-          "reducer": [
-            "sum"
-          ],
-          "show": false
-        },
         "showHeader": true
       },
-      "pluginVersion": "12.1.1",
+      "pluginVersion": "12.4.2",
       "targets": [
         {
           "datasource": {
@@ -2031,7 +2100,6 @@
           "editorMode": "code",
           "format": "table",
           "group": [],
-          "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
           "rawSql": "SELECT\n  *\nFROM public.v_kwh_year",
@@ -2081,18 +2149,19 @@
   ],
   "preload": false,
   "refresh": "",
-  "schemaVersion": 41,
+  "schemaVersion": 42,
   "tags": [],
   "templating": {
     "list": []
   },
   "time": {
-    "from": "now-3h",
-    "to": "now"
+    "from": "2026-04-24T20:31:40.734Z",
+    "to": "2026-04-25T20:31:40.734Z"
   },
   "timepicker": {},
-  "timezone": "",
+  "timezone": "browser",
   "title": "Robert",
   "uid": "EFixgMmRz",
-  "version": 14
+  "version": 16,
+  "weekStart": ""
 }
