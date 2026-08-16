@@ -2,7 +2,7 @@
 
 import psycopg2
 
-conn = "unknown"
+conn = None
 
 
 # write watts to TimescaleDB
@@ -140,8 +140,11 @@ def connect(timescaledb_ip, timescaledb_username, timescaledb_password):
 
     except Exception as ex:
         print("ERROR: ", ex)
+        conn = None
 
 
 def close():
     global conn
-    conn.close()
+    if conn is not None:
+        conn.close()
+        conn = None
