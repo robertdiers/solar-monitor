@@ -41,8 +41,16 @@ class Goodwe:
                 # HV does have a total attribute
                 if 'total_inverter_power' in sensor.id_ and 'hv' in suffix:
                     TimescaleDb.writeW('goodwe_' + suffix + '_grid', runtime_data[sensor.id_])
-                if 'pgrid' in sensor.id_ and '48' in suffix:
+                if sensor.id_ == 'pgrid' and '48' in suffix:
                     TimescaleDb.writeW('goodwe_' + suffix + '_grid', runtime_data[sensor.id_])
+
+                # per phase grid power (signed: positive = feed-in, negative = draw)
+                if sensor.id_ == 'pgrid' and 'hv' in suffix:
+                    TimescaleDb.writeW('goodwe_' + suffix + '_grid_l1', runtime_data[sensor.id_])
+                if sensor.id_ == 'pgrid2' and 'hv' in suffix:
+                    TimescaleDb.writeW('goodwe_' + suffix + '_grid_l2', runtime_data[sensor.id_])
+                if sensor.id_ == 'pgrid3' and 'hv' in suffix:
+                    TimescaleDb.writeW('goodwe_' + suffix + '_grid_l3', runtime_data[sensor.id_])
 
                 if 'e_day' in sensor.id_ and len(sensor.id_) == 5:
                     if store_all:
