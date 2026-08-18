@@ -13,8 +13,8 @@ class Goodwe:
         inverter = await goodwe.connect(goodwe_ip)
         runtime_data = await inverter.read_runtime_data()
 
-        print('#####' + suffix + '######')
-        print(runtime_data)
+        # print('#####' + suffix + '######')
+        # print(runtime_data)
 
         # do not log all values between 23 and 3 o'clock
         store_all = False
