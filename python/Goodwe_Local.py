@@ -44,10 +44,12 @@ class Goodwe:
                 # HV does have a total attribute
                 if 'total_inverter_power' in sensor.id_ and 'hv' in suffix:
                     TimescaleDb.writeW('goodwe_' + suffix + '_grid', runtime_data[sensor.id_])
+
+                # 48v inverter uses grid attribute as the metered power at smart meter
                 if sensor.id_ == 'pgrid' and '48' in suffix:
                     TimescaleDb.writeW('goodwe_' + suffix + '_grid', runtime_data[sensor.id_])
 
-                # per phase meter grid power (signed: positive = feed-in, negative = draw)
+                # per phase smart meter grid power das dedicated values for the hv inverter
                 if sensor.id_ == 'meter_active_power1' and 'hv' in suffix:
                     TimescaleDb.writeW('goodwe_' + suffix + '_grid_l1', runtime_data[sensor.id_])
                 if sensor.id_ == 'meter_active_power2' and 'hv' in suffix:
