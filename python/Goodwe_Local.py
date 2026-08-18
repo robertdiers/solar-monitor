@@ -13,6 +13,9 @@ class Goodwe:
         inverter = await goodwe.connect(goodwe_ip)
         runtime_data = await inverter.read_runtime_data()
 
+        print('#####' + suffix + '######')
+        print(runtime_data)
+
         # do not log all values between 23 and 3 o'clock
         store_all = False
         if dt.datetime.now().hour < 23 and dt.datetime.now().hour >= 3:
@@ -44,13 +47,15 @@ class Goodwe:
                 if sensor.id_ == 'pgrid' and '48' in suffix:
                     TimescaleDb.writeW('goodwe_' + suffix + '_grid', runtime_data[sensor.id_])
 
-                # per phase grid power (signed: positive = feed-in, negative = draw)
-                if sensor.id_ == 'pgrid' and 'hv' in suffix:
+                # per phase meter grid power (signed: positive = feed-in, negative = draw)
+                if sensor.id_ == 'meter_active_power1' and 'hv' in suffix:
                     TimescaleDb.writeW('goodwe_' + suffix + '_grid_l1', runtime_data[sensor.id_])
-                if sensor.id_ == 'pgrid2' and 'hv' in suffix:
+                if sensor.id_ == 'meter_active_power2' and 'hv' in suffix:
                     TimescaleDb.writeW('goodwe_' + suffix + '_grid_l2', runtime_data[sensor.id_])
-                if sensor.id_ == 'pgrid3' and 'hv' in suffix:
+                if sensor.id_ == 'meter_active_power3' and 'hv' in suffix:
                     TimescaleDb.writeW('goodwe_' + suffix + '_grid_l3', runtime_data[sensor.id_])
+                if sensor.id_ == 'meter_active_power_total' and 'hv' in suffix:
+                    TimescaleDb.writeW('goodwe_' + suffix + '_grid', runtime_data[sensor.id_])
 
                 if 'e_day' in sensor.id_ and len(sensor.id_) == 5:
                     if store_all:
