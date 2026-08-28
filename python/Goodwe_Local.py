@@ -13,8 +13,8 @@ class Goodwe:
         inverter = await goodwe.connect(goodwe_ip)
         runtime_data = await inverter.read_runtime_data()
 
-        # print('#####' + suffix + '######')
-        # print(runtime_data)
+        print('#####' + suffix + '######')
+        print(runtime_data)
 
         # do not log all values between 23 and 3 o'clock
         store_all = False
@@ -40,10 +40,6 @@ class Goodwe:
                     TimescaleDb.writeP('goodwe_' + suffix + '_battery_soh', float(runtime_data[sensor.id_]) / 100.0)
                 if 'battery_soc' in sensor.id_:
                     TimescaleDb.writeP('goodwe_' + suffix + '_battery_soc', float(runtime_data[sensor.id_]) / 100.0)
-
-                # HV does have a total attribute
-                if 'total_inverter_power' in sensor.id_ and 'hv' in suffix:
-                    TimescaleDb.writeW('goodwe_' + suffix + '_grid', runtime_data[sensor.id_])
 
                 # 48v inverter uses grid attribute as the metered power at smart meter
                 if sensor.id_ == 'pgrid' and '48' in suffix:
