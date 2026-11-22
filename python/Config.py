@@ -40,6 +40,7 @@ def read():
         values["shelly8_mqtt_name"] = config['MqttTopicSection']['shelly8_mqtt_name']
         values["shelly9_mqtt_name"] = config['MqttTopicSection']['shelly9_mqtt_name']
         values["grid_mqtt_name"] = config['MqttTopicSection']['grid_mqtt_name']
+        values["emdata_mqtt_name"] = config['MqttTopicSection']['emdata_mqtt_name']
         if os.getenv('TEMP_MQTT_NAME', 'None') != 'None':
             values["temp_mqtt_name"] = os.getenv('TEMP_MQTT_NAME')
             # print ("using env: TEMP_MQTT_NAME")
@@ -82,6 +83,9 @@ def read():
         if os.getenv('GRID_MQTT_NAME', 'None') != 'None':
             values["grid_mqtt_name"] = os.getenv('GRID_MQTT_NAME')
             # print ("using env: GRID_MQTT_NAME")
+        if os.getenv('EMDATA_MQTT_NAME', 'None') != 'None':
+            values["emdata_mqtt_name"] = os.getenv('EMDATA_MQTT_NAME')
+            # print ("using env: EMDATA_MQTT_NAME")
 
         values["timescaledb_ip"] = config['DatabaseSection']['timescaledb_ip']
         values["timescaledb_username"] = config['DatabaseSection']['timescaledb_username']

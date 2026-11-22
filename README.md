@@ -20,6 +20,7 @@
 ## main Python scripts (startup and cron triggered):
 * init.py - initializes TimescaleDB tables as they are removed when device restarts
 * daly-subscribe.py - subscribes to DALY MQTT output and store to database (https://github.com/softwarecrash/DALY-BMS-to-MQTT)
+* emdata-subscribe.py - reads the Shelly Pro 3EM energy counters every 5 minutes (one MQTT message per run) and stores counters and daily values
 * solar-monitor.py - collect metrics and store to database (grid from Shelly Pro 3EM and one message per Shelly PM Mini per run, both via short-lived MQTT clients)
 
 ## additional Python modules
@@ -48,6 +49,7 @@ services:
         - MQTT_BROKER=brokerip
         - MQTT_PASSWORD=brokerpassword
         - GRID_MQTT_NAME=shellypro3em-fce8c0d97c10/status/em:0
+        - EMDATA_MQTT_NAME=shellypro3em-fce8c0d97c10/status/emdata:0
         - TIMESCALEDB_IP=databaseip
         - TIMESCALEDB_PASSWORD=databasepassword
         - BYD_IP=bydip
@@ -63,6 +65,12 @@ Negative values mean feed-in. The former `goodwe_*_grid*` values are no longer
 written. The nine Shelly PM Mini topics (`shelly1_*` … `shelly9_*`) are read in
 the same cron run with short-lived clients; each client waits only for the next
 message, so only one value per device and minute is stored.
+
+The energy counters from `emdata:0` (`total_act` and `total_act_ret`) are stored
+every 5 minutes by `emdata-subscribe.py` as `shellypro3em_energy_import` and
+`shellypro3em_energy_export`: the counter goes to `kilowatthours_day_counter`,
+the difference to the counter stored yesterday is written to `kilowatthours`
+and `kilowatthours_day` (as with the other kWh values).
 
 ### TimescaleDB (please define your own password)
 
