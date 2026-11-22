@@ -7,7 +7,7 @@ import Config
 import Shelly
 import TimescaleDb
 
-# cumulative Shelly Pro 3EM counters (already in kWh) and their database keys
+# cumulative Shelly Pro 3EM counters (in Wh) and their database keys
 counters = {
     "total_act": "shellypro3em_energy_import",
     "total_act_ret": "shellypro3em_energy_export",
@@ -28,7 +28,8 @@ def writedb(name, json):
             if value is None or math.isnan(value):
                 continue
             # 1. update the counter table (value for 'today')
-            today_counter = float(value)
+            # emdata:0 reports Wh, the kWh tables expect kWh
+            today_counter = float(value) / 1000
             TimescaleDb.writeKTC(key, today_counter)
             # 2. get the counter value from yesterday
             yesterday_counter = TimescaleDb.readKTCYesterday(key)

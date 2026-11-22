@@ -70,7 +70,10 @@ The energy counters from `emdata:0` (`total_act` and `total_act_ret`) are stored
 every 5 minutes by `emdata-subscribe.py` as `shellypro3em_energy_import` and
 `shellypro3em_energy_export`: the counter goes to `kilowatthours_day_counter`,
 the difference to the counter stored yesterday is written to `kilowatthours`
-and `kilowatthours_day` (as with the other kWh values).
+and `kilowatthours_day` (as with the other kWh values). Shelly reports these
+counters in Wh; they are divided by 1000 before storing. Existing rows are
+converted once on container startup by `init.sql` (tracked in
+`schema_migrations`).
 
 ### TimescaleDB (please define your own password)
 
