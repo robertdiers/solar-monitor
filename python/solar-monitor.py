@@ -150,7 +150,6 @@ def grid_shelly(conf):
         "_l2": "b_act_power",
         "_l3": "c_act_power",
     }
-    samples = {key: [] for key in fields}
     complete = threading.Event()
     written = False
     client = None
@@ -158,17 +157,17 @@ def grid_shelly(conf):
     def writedb(name, json):
         nonlocal written
         try:
-            for key, attribute in fields.items():
-                value = json.get(attribute)
-                if value is not None and not math.isnan(value):
-                    samples[key].append(float(value))
-            # three messages carrying all four values are needed
-            if not written and all(len(values) >= 3 for values in samples.values()):
+            if written:
+                return
+            wrote_any = False
+            with DB_LOCK:
+                for key, attribute in fields.items():
+                    value = json.get(attribute)
+                    if value is not None and not math.isnan(value):
+                        TimescaleDb.writeW('shellypro3em_grid' + key, float(value))
+                        wrote_any = True
+            if wrote_any:
                 written = True
-                with DB_LOCK:
-                    for key, values in samples.items():
-                        TimescaleDb.writeW('shellypro3em_grid' + key,
-                                           sum(values) / len(values))
                 complete.set()
         except Exception as ex:
             print("ERROR grid_shelly: ", ex)
@@ -180,10 +179,10 @@ def grid_shelly(conf):
         if client is None:
             print("ERROR grid_shelly: no MQTT client")
             return
-        # wait for the messages, but do not block the cron run for long
-        complete.wait(15)
+        # wait for at least one message, but do not block the cron run for long
+        complete.wait(30)
         if not complete.is_set():
-            print("ERROR grid_shelly: timeout waiting for 3 messages")
+            print("ERROR grid_shelly: timeout waiting for message")
     except Exception as ex:
         print("ERROR grid_shelly: ", ex)
     finally:
@@ -246,7 +245,7 @@ def shelly_pm(conf):
             if client is None:
                 print("ERROR shelly_pm " + name + ": no MQTT client")
                 return
-            done.wait(10)
+            done.wait(30)
             if not done.is_set():
                 print("ERROR shelly_pm " + name + ": timeout waiting for message")
         except Exception as ex:
