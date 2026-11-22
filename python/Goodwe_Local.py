@@ -41,20 +41,6 @@ class Goodwe:
                 if 'battery_soc' in sensor.id_:
                     TimescaleDb.writeP('goodwe_' + suffix + '_battery_soc', float(runtime_data[sensor.id_]) / 100.0)
 
-                # 48v inverter uses grid attribute as the metered power at smart meter
-                if sensor.id_ == 'pgrid' and '48' in suffix:
-                    TimescaleDb.writeW('goodwe_' + suffix + '_grid', runtime_data[sensor.id_])
-
-                # per phase smart meter grid power das dedicated values for the hv inverter
-                if sensor.id_ == 'meter_active_power1' and 'hv' in suffix:
-                    TimescaleDb.writeW('goodwe_' + suffix + '_grid_l1', runtime_data[sensor.id_])
-                if sensor.id_ == 'meter_active_power2' and 'hv' in suffix:
-                    TimescaleDb.writeW('goodwe_' + suffix + '_grid_l2', runtime_data[sensor.id_])
-                if sensor.id_ == 'meter_active_power3' and 'hv' in suffix:
-                    TimescaleDb.writeW('goodwe_' + suffix + '_grid_l3', runtime_data[sensor.id_])
-                if sensor.id_ == 'meter_active_power_total' and 'hv' in suffix:
-                    TimescaleDb.writeW('goodwe_' + suffix + '_grid', runtime_data[sensor.id_])
-
                 if 'e_day' in sensor.id_ and len(sensor.id_) == 5:
                     if store_all:
                         # print('goodwe_' + suffix)

@@ -10,7 +10,6 @@ RUN which python3
 # copy files
 COPY python /app/python
 COPY shell/daly-subscribe.sh /app/daly-subscribe.sh
-COPY shell/shelly-subscribe.sh /app/shelly-subscribe.sh
 COPY shell/solar-monitor.sh /app/solar-monitor.sh
 COPY shell/entrypoint.sh /app/entrypoint.sh
 COPY shell/container_cron /etc/cron.d/container_cron

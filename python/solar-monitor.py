@@ -3,15 +3,20 @@
 from datetime import datetime
 import asyncio
 import math
+import threading
 
 import TimescaleDb
 import Tasmota
 import BYD
 import Config
 import IdmPump
+import Shelly
 # import Solax
 # import Goodwe
 import Goodwe_Local
+
+# serializes database writes from the MQTT client threads
+DB_LOCK = threading.Lock()
 
 
 # temp metrics from Tasmota
@@ -137,6 +142,128 @@ def goodwe_local(goodwe_ip, suffix):
         print("ERROR goodwe: ", ex)
 
 
+# grid metrics from Shelly Pro 3EM
+def grid_shelly(conf):
+    fields = {
+        "": "total_act_power",
+        "_l1": "a_act_power",
+        "_l2": "b_act_power",
+        "_l3": "c_act_power",
+    }
+    samples = {key: [] for key in fields}
+    complete = threading.Event()
+    written = False
+    client = None
+
+    def writedb(name, json):
+        nonlocal written
+        try:
+            for key, attribute in fields.items():
+                value = json.get(attribute)
+                if value is not None and not math.isnan(value):
+                    samples[key].append(float(value))
+            # three messages carrying all four values are needed
+            if not written and all(len(values) >= 3 for values in samples.values()):
+                written = True
+                with DB_LOCK:
+                    for key, values in samples.items():
+                        TimescaleDb.writeW('shellypro3em_grid' + key,
+                                           sum(values) / len(values))
+                complete.set()
+        except Exception as ex:
+            print("ERROR grid_shelly: ", ex)
+
+    try:
+        client = Shelly.subscribe(conf["mqtt_broker"], conf["mqtt_port"],
+                                  conf["mqtt_user"], conf["mqtt_password"],
+                                  conf["grid_mqtt_name"], writedb, "pro3em")
+        if client is None:
+            print("ERROR grid_shelly: no MQTT client")
+            return
+        # wait for the messages, but do not block the cron run for long
+        complete.wait(15)
+        if not complete.is_set():
+            print("ERROR grid_shelly: timeout waiting for 3 messages")
+    except Exception as ex:
+        print("ERROR grid_shelly: ", ex)
+    finally:
+        if client is not None:
+            Shelly.close(client, conf["grid_mqtt_name"])
+            client.disconnect()
+
+
+# short-lived clients for the Shelly PM Mini devices (one message per run)
+def shelly_pm(conf):
+    topics = {
+        "shelly1": conf["shelly1_mqtt_name"],
+        "shelly2": conf["shelly2_mqtt_name"],
+        "shelly3": conf["shelly3_mqtt_name"],
+        "shelly4": conf["shelly4_mqtt_name"],
+        "shelly5": conf["shelly5_mqtt_name"],
+        "shelly6": conf["shelly6_mqtt_name"],
+        "shelly7": conf["shelly7_mqtt_name"],
+        "shelly8": conf["shelly8_mqtt_name"],
+        "shelly9": conf["shelly9_mqtt_name"],
+    }
+
+    def run(name, topic):
+        done = threading.Event()
+        written = False
+
+        def writedb(alias, json):
+            nonlocal written
+            if written:
+                return
+            written = True
+            try:
+                # do not log values between 23 and 3 o'clock
+                if datetime.now().hour < 23 and datetime.now().hour >= 3:
+                    power = json.get("apower")
+                    energy = json.get("aenergy_total")
+                    with DB_LOCK:
+                        if power is not None and not math.isnan(power):
+                            TimescaleDb.writeW(alias, -float(power))
+                        if energy is not None and not math.isnan(energy):
+                            # aenergy is a counter in Wh, store it as kWh
+                            today_counter = float(energy) / 1000
+                            TimescaleDb.writeKTC(alias, today_counter)
+                            yesterday_counter = TimescaleDb.readKTCYesterday(alias)
+                            if yesterday_counter > today_counter:
+                                print('detected resetted counter - ignoring yesterdays kwh')
+                                yesterday_counter = 0
+                            today_kwh = today_counter - yesterday_counter
+                            TimescaleDb.writeK(alias, today_kwh)
+                            TimescaleDb.writeKT(alias, today_kwh)
+            except Exception as ex:
+                print("ERROR shelly_pm " + alias + ": ", ex)
+            done.set()
+
+        client = None
+        try:
+            client = Shelly.subscribe(conf["mqtt_broker"], conf["mqtt_port"],
+                                      conf["mqtt_user"], conf["mqtt_password"],
+                                      topic, writedb, name)
+            if client is None:
+                print("ERROR shelly_pm " + name + ": no MQTT client")
+                return
+            done.wait(10)
+            if not done.is_set():
+                print("ERROR shelly_pm " + name + ": timeout waiting for message")
+        except Exception as ex:
+            print("ERROR shelly_pm " + name + ": ", ex)
+        finally:
+            if client is not None:
+                Shelly.close(client, topic)
+                client.disconnect()
+
+    threads = []
+    for name, topic in topics.items():
+        thread = threading.Thread(target=run, args=(name, topic))
+        thread.start()
+        threads.append(thread)
+    return threads
+
+
 if __name__ == "__main__":
     # print (datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " START #####")
     try:
@@ -152,6 +279,10 @@ if __name__ == "__main__":
         idm(conf["idm_ip"], conf["idm_port"])
         goodwe_local(conf["goodwe_ip_hv"], 'hv')
         goodwe_local(conf["goodwe_ip_48"], '48')
+        pm_threads = shelly_pm(conf)
+        grid_shelly(conf)
+        for thread in pm_threads:
+            thread.join()
 
         # deactivated cloud solutions
         # solax(conf["solax_tokenid"], conf["solax_inverter"])

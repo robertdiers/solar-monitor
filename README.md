@@ -2,7 +2,7 @@
 
 * Using GoodWe hybrid inverters, because they are able to work with negative house load - in my case energy from other inverters
 * Want to avoid cloud usage, the SolaX inverters are measured by cheap Shelly PM Mini G3
-* Connected heat pump to HV inverter/battery, as I want to make use of solar surplus as early as possible (https://github.com/robertdiers/goodwe_idmpump)
+* Connected heat pump to Shelly PRO 3EM, as I want to make use of solar surplus as early as possible (https://github.com/robertdiers/shelly_idmpump)
 
 ## Setup:
 * GoodWe GW8K-ET inverter (HV)
@@ -12,6 +12,7 @@
 * GoodWe 5048D-ES inverter (48V)
 * 48V battery block with Daly BMS (3 blocks in parallel)
 * Tasmota device with temperature sensor (Sonoff TH16 + DS18B20)
+* Shelly PRO 3EM smart meter (grid entry point)
 * Device to run the containers
 
 ![arch](./arch.drawio.png)
@@ -19,15 +20,14 @@
 ## main Python scripts (startup and cron triggered):
 * init.py - initializes TimescaleDB tables as they are removed when device restarts
 * daly-subscribe.py - subscribes to DALY MQTT output and store to database (https://github.com/softwarecrash/DALY-BMS-to-MQTT)
-* shelly-subscribe.py - subscribes to Shelly MQTT output (SolaX inverters)
-* solar-monitor.py - collect metrics and store to database
+* solar-monitor.py - collect metrics and store to database (grid from Shelly Pro 3EM and one message per Shelly PM Mini per run, both via short-lived MQTT clients)
 
 ## additional Python modules
 * BYD.py - read actual values from BYD battery (TCP Socket)
 * Config.py - read config file and check for environment parameter overrides
 * Daly.py - subscribes to MQTT topic to read data
 * Goodwe.py - read actual values from Goodwe inverter (SEMS Portal API) - UNUSED
-* Goodwe_Local.py - read actual values from Goodwe inverter (python package)
+* Goodwe_Local.py - read actual values from Goodwe inverter (python package), grid values are now read from Shelly Pro 3EM
 * IdmPump.py - read actual solar power from iDM heat pump (TCP Modbus)
 * Shelly.py - subscribes to MQTT topic to read data
 * Solax.py - read actual values from Solax inverter (Solax Portal API) - UNUSED
@@ -47,6 +47,7 @@ services:
         environment:
         - MQTT_BROKER=brokerip
         - MQTT_PASSWORD=brokerpassword
+        - GRID_MQTT_NAME=shellypro3em-fce8c0d97c10/status/em:0
         - TIMESCALEDB_IP=databaseip
         - TIMESCALEDB_PASSWORD=databasepassword
         - BYD_IP=bydip
@@ -54,6 +55,14 @@ services:
         - GOODWE_IP_HV=goodweip_hv
         - GOODWE_IP_48=goodweip_48v
 ```
+
+The grid values are read from the Shelly Pro 3EM topic once per minute (3 MQTT
+messages averaged) and stored in the `watts` table as `shellypro3em_grid`,
+`shellypro3em_grid_l1`, `shellypro3em_grid_l2` and `shellypro3em_grid_l3`.
+Negative values mean feed-in. The former `goodwe_*_grid*` values are no longer
+written. The nine Shelly PM Mini topics (`shelly1_*` … `shelly9_*`) are read in
+the same cron run with short-lived clients; each client waits only for the next
+message, so only one value per device and minute is stored.
 
 ### TimescaleDB (please define your own password)
 
