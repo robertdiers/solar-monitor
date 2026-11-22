@@ -18,8 +18,9 @@ COPY shell/container_cron /etc/cron.d/container_cron
 # set workdir
 WORKDIR /app
 
-# give execution rights on the cron job
-RUN chmod 0644 /etc/cron.d/container_cron
+# give execution rights
+RUN chmod +x /app/daly-subscribe.sh /app/emdata-subscribe.sh /app/solar-monitor.sh /app/entrypoint.sh && \
+    chmod 0644 /etc/cron.d/container_cron
 
 # apply cron job
 RUN crontab /etc/cron.d/container_cron

@@ -180,9 +180,9 @@ def grid_shelly(conf):
             print("ERROR grid_shelly: no MQTT client")
             return
         # wait for at least one message, but do not block the cron run for long
-        complete.wait(30)
+        complete.wait(60)
         if not complete.is_set():
-            print("ERROR grid_shelly: timeout waiting for message")
+            pass
     except Exception as ex:
         print("ERROR grid_shelly: ", ex)
     finally:
@@ -245,9 +245,9 @@ def shelly_pm(conf):
             if client is None:
                 print("ERROR shelly_pm " + name + ": no MQTT client")
                 return
-            done.wait(30)
+            done.wait(60)
             if not done.is_set():
-                print("ERROR shelly_pm " + name + ": timeout waiting for message")
+                pass
         except Exception as ex:
             print("ERROR shelly_pm " + name + ": ", ex)
         finally:
