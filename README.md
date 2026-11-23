@@ -58,6 +58,10 @@ services:
         - GOODWE_IP_48=goodweip_48v
 ```
 
+`GOODWE_IP_HV` and `GOODWE_IP_48` also accept several comma-separated addresses
+(e.g. `GOODWE_IP_HV=192.168.1.95,192.168.1.96`) for inverters switching between
+LAN and WLAN. The first reachable address is used, unavailable ones are skipped.
+
 The grid values are read from the Shelly Pro 3EM topic once per minute (3 MQTT
 messages averaged) and stored in the `watts` table as `shellypro3em_grid`,
 `shellypro3em_grid_l1`, `shellypro3em_grid_l2` and `shellypro3em_grid_l3`.

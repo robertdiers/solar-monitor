@@ -134,10 +134,10 @@ def idm(idm_ip, idm_port):
 
 
 # # metrics from Goodwe
-def goodwe_local(goodwe_ip, suffix):
+def goodwe_local(goodwe_ips, suffix):
     try:
         # read Goodwe
-        asyncio.run(Goodwe_Local.Goodwe.get_runtime_data(goodwe_ip, suffix))
+        asyncio.run(Goodwe_Local.Goodwe.get_runtime_data(goodwe_ips, suffix))
     except Exception as ex:
         print("ERROR goodwe: ", ex)
 

@@ -8,10 +8,24 @@ import TimescaleDb
 
 class Goodwe:
 
-    async def get_runtime_data(goodwe_ip, suffix):
+    async def read_runtime_data(goodwe_ips):
+        last_error = None
+        for goodwe_ip in goodwe_ips:
+            try:
+                inverter = await goodwe.connect(goodwe_ip)
+                runtime_data = await inverter.read_runtime_data()
+                return goodwe_ip, inverter, runtime_data
+            except Exception as ex:
+                print('INFO goodwe: IP ' + goodwe_ip + ' not available ('
+                      + type(ex).__name__ + '): ' + str(ex))
+                last_error = ex
+        raise Exception('no goodwe inverter reachable at '
+                        + ', '.join(goodwe_ips)) from last_error
 
-        inverter = await goodwe.connect(goodwe_ip)
-        runtime_data = await inverter.read_runtime_data()
+    async def get_runtime_data(goodwe_ips, suffix):
+
+        goodwe_ip, inverter, runtime_data = await Goodwe.read_runtime_data(goodwe_ips)
+        print('INFO goodwe ' + suffix + ': using IP ' + goodwe_ip)
 
         # print('#####' + suffix + '######')
         # print(runtime_data)

@@ -7,6 +7,10 @@ import os
 config = configparser.ConfigParser()
 
 
+def split_ips(value):
+    return [ip.strip() for ip in value.split(',') if ip.strip()]
+
+
 def read():
     try:
         # read config
@@ -147,14 +151,14 @@ def read():
         # if os.getenv('SEMS_STATIONID', 'None') != 'None':
         #     values["sems_stationid"] = os.getenv('SEMS_STATIONID')
         #     # print ("using env: SEMS_STATIONID "+values["sems_stationid"])
-        values["goodwe_ip_48"] = config['GoodweSection']['goodwe_ip_48']
+        values["goodwe_ip_48"] = split_ips(config['GoodweSection']['goodwe_ip_48'])
         if os.getenv('GOODWE_IP_48', 'None') != 'None':
-            values["goodwe_ip_48"] = os.getenv('GOODWE_IP_48')
-            # print ("using env: GOODWE_IP_48 "+values["goodwe_ip_48"])
-        values["goodwe_ip_hv"] = config['GoodweSection']['goodwe_ip_hv']
+            values["goodwe_ip_48"] = split_ips(os.getenv('GOODWE_IP_48'))
+            # print ("using env: GOODWE_IP_48 "+str(values["goodwe_ip_48"]))
+        values["goodwe_ip_hv"] = split_ips(config['GoodweSection']['goodwe_ip_hv'])
         if os.getenv('GOODWE_IP_HV', 'None') != 'None':
-            values["goodwe_ip_hv"] = os.getenv('GOODWE_IP_HV')
-            # print ("using env: GOODWE_IP_HV "+values["goodwe_ip_hv"])
+            values["goodwe_ip_hv"] = split_ips(os.getenv('GOODWE_IP_HV'))
+            # print ("using env: GOODWE_IP_HV "+str(values["goodwe_ip_hv"]))
 
         # print (datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " config: ", values)
 
